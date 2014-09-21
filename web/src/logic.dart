@@ -11,7 +11,7 @@ class Logic {
 	State state;
 
 	int income = 0;
-	boolean incomeDirty = true;
+	bool incomeDirty = true;
 
 	Logic(State state, Spec spec) : this.state = state, this.spec = spec {
 	}
