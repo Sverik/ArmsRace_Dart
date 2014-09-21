@@ -8,7 +8,7 @@ import 'src/spec.dart';
 
 /** Iga stepIntervalMs-inda millisekundi kohta tuleb üks samm teha. See muutuja näitab, millise millisekundi kohta viimati samm tehti. */
 int previousStepTime = -1000;
-const stepIntervalMs = 250;
+const stepIntervalMs = 200;
 Logic logic;
 UserInterface ui;
 State state;

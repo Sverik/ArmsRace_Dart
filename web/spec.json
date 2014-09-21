@@ -14,15 +14,27 @@
     },
     {
       "id": 3,
-      "name": "Blacksmith",
-      "cost": 1500,
-      "income": 10
+      "name": "Mill",
+      "cost": 1000,
+      "income": 12
     },
     {
       "id": 4,
-      "name": "Mason",
+      "name": "Brewery",
       "cost": 1500,
-      "income": 11
+      "income": 14
+    },
+    {
+      "id": 5,
+      "name": "Mason",
+      "cost": 2000,
+      "income": 19
+    },
+    {
+      "id": 6,
+      "name": "Blacksmith",
+      "cost": 3000,
+      "income": 25
     }
   ]
 }

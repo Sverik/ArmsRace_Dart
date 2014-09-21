@@ -1,7 +1,7 @@
 library state;
 
 class State {
-	int money = 100;
+	int money = 500;
 
 	Map<int, int> boughtEcons = new Map();
 

@@ -61,16 +61,16 @@ class UserInterface {
 			name.innerHtml = econ.name;
 
 			// <div id="cost" class="b_cost">${econ.cost}</div>
-			DivElement cost = new DivElement();
-			buildDesc.children.add(cost);
-			cost.classes.add("b_cost");
-			cost.innerHtml = econ.cost.toString();
+			DivElement costRow = new DivElement();
+			buildDesc.children.add(costRow);
+			costRow.classes.add("b_cost");
+			costRow.innerHtml = '<span class="costLabel">cost: </span>' + econ.cost.toString();
 
 			// <div id="income" class="b_income">${econ.income}</div>
 			DivElement income = new DivElement();
 			buildDesc.children.add(income);
 			income.classes.add("b_income");
-			income.innerHtml = econ.income.toString();
+			income.innerHtml = '<span class="incomeLabel">income: </span>' + econ.income.toString();
 
 			// <div class="econBuiltSpacer">&nbsp;</div>
 			DivElement econBuiltSpacer = new DivElement();
@@ -82,7 +82,7 @@ class UserInterface {
 			DivElement econBuilt = new DivElement();
 			econBuildingRow.children.add(econBuilt);
 			econBuilt.classes.add("econBuilt");
-			econBuilt.innerHtml = "0";
+			//econBuilt.innerHtml = "0";
 
 			// <div class="clear"></div>
 			DivElement clear = new DivElement();
@@ -182,8 +182,20 @@ class EconomyElement {
 
   	int count = state.getEcons(spec.id);
   	if (count != currentCount) {
+  		// Uuendame näidatavat arvu
   		currentCount = count;
-  		built.innerHtml = currentCount.toString();
+//  		built.innerHtml = currentCount.toString();
+  		built.children.clear();
+  		num step = (built.client.width - 40) / currentCount;
+  		num pos = 0;
+  		for (var i = 0 ; i < currentCount ; i++) {
+	  		ImageElement image = new ImageElement(src: "farm.png", width: 40, height: 40);
+	  		image.classes.add("econImage");
+	  		image.style.marginLeft = '${pos.floor()}px';
+	  		built.children.add(image);
+	  		pos += step;
+  		}
+  		print(built.client.width);
   	}
 
   }

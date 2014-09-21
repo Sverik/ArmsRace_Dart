@@ -31,16 +31,26 @@ h1, p {
 		display: table-cell;
 }
 
+#money_amount_id {
+		font-weight: bold;
+}
+
 #economy {
-		background-color: #fdd;
+		border-right: solid 3px gray;
+		padding-right: 5px;
 }
 
 #arms {
-		background-color: #dfd;
+		padding-left: 5px;
 }
 
 .title {
-		/*background-color: #ddf;*/
+		text-align: center;
+}
+
+.costLabel, .incomeLabel {
+		color: #aaa;
+		font-style: italic;
 }
 
 .econBuilding {
@@ -50,22 +60,20 @@ h1, p {
 
 .econBuild {
 		float: left;
-		display: inline-block;
+		max-width: 150px;
+		min-width: 100px;
 }
 
 .econBuilt {
-		height: 100%;
-		background-color: #ffa;
-		text-align: center;
-		margin: 0 auto;
-		padding-left: 10px;
-		display: inline-block;
+		text-align: left;
+		padding-left: 8px;
+		overflow: auto;
 }
 
 .econBuiltSpacer {
 		float: right;
+		width: 0px;
 		height: 100%;
-		display: inline-block;
 }
 
 .buildButton {
@@ -73,7 +81,8 @@ h1, p {
 		height: 40px;
 		line-height: 40px;
 		float: left;
-		background-color: #7c8;
+		margin-top: 4px;
+		background-color: #aea;
 		border: 1px solid #666;
 		font-size: x-large;
 		font-weight: normal;
@@ -87,7 +96,7 @@ h1, p {
 }
 
 .buildButton.disabled {
-		background-color: #999;
+		background-color: #ddd;
 		cursor: default;
 }
 
@@ -100,7 +109,8 @@ h1, p {
 
 .buildDesc {
 		float: right;
-		background-color: #faf;
+		width: 80px;
+		padding-left: 4px;
 }
 
 .clear {
@@ -117,4 +127,8 @@ h1, p {
 
 .hidden {
 		visibility: hidden;
+}
+
+.econImage {
+		position: absolute;
 }
