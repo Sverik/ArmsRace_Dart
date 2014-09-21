@@ -24,7 +24,8 @@ void main() {
   	logic = new Logic(state, spec);
 
   	ui = new UserInterface(logic, state, spec);
-  	ui.moneyAmount = querySelector("#money_amount_id");
+  	ui.moneyAmount = querySelector("#money_amount");
+  	ui.incomeAmount = querySelector("#income_amount");
   	ui.economy = querySelector("#economy");
   	ui.init();
 

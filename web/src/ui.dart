@@ -11,6 +11,7 @@ class UserInterface {
 	Spec spec;
 
 	Element moneyAmount;
+	Element incomeAmount;
 	Element economy;
 
 	Map<int, EconomyElement> econElems = new Map();
@@ -127,6 +128,8 @@ class UserInterface {
 		econElems.forEach((int id, EconomyElement econElem){
 			econElem.updateState(state.money);
 		});
+
+		incomeAmount.setInnerHtml(state.income.toString());
 	}
 }
 
@@ -186,7 +189,7 @@ class EconomyElement {
   		currentCount = count;
 //  		built.innerHtml = currentCount.toString();
   		built.children.clear();
-  		num step = (built.client.width - 40) / currentCount;
+  		num step = (built.client.width - 44) / currentCount;
   		num pos = 0;
   		for (var i = 0 ; i < currentCount ; i++) {
 	  		ImageElement image = new ImageElement(src: "farm.png", width: 40, height: 40);
@@ -195,7 +198,11 @@ class EconomyElement {
 	  		built.children.add(image);
 	  		pos += step;
   		}
-  		print(built.client.width);
+  		built.children.add(
+  				new LabelElement()
+  					..classes.add("econCount")
+  					..innerHtml='$currentCount'
+  		);
   	}
 
   }

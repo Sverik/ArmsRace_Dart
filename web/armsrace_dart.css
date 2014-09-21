@@ -31,7 +31,19 @@ h1, p {
 		display: table-cell;
 }
 
-#money_amount_id {
+.cash {
+		font-size: large;
+}
+
+.income {
+		font-size: medium;
+}
+
+.label {
+		color: #555;
+}
+
+.amount {
 		font-weight: bold;
 }
 
@@ -67,6 +79,7 @@ h1, p {
 .econBuilt {
 		text-align: left;
 		padding-left: 8px;
+		padding-right: 25px;
 		overflow: auto;
 }
 
@@ -131,4 +144,21 @@ h1, p {
 
 .econImage {
 		position: absolute;
+}
+
+.econCount {
+		position: absolute;
+		margin-left: 5px;
+		margin-top: 20px;
+		font-weight: bold;
+		color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    -1px 0px 0 #000,
+    1px -1px 0 #000,
+    1px 0px 0 #000,
+    -1px 1px 0 #000,
+    0px 1px 0 #000,
+    1px 1px 0 #000,
+    0px -1px 0 #000;
 }
