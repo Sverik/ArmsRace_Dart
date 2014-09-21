@@ -1,0 +1,14 @@
+{
+  "economicBuildings": [
+    {
+      "id": 1,
+      "name": "Small Farm",
+      "cost": 100
+    },
+    {
+      "id": 2,
+      "name": "Carpenter",
+      "cost": 500
+    }
+  ]
+}

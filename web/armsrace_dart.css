@@ -1,0 +1,44 @@
+
+body {
+  background-color: #F8F8F8;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 15px;
+}
+
+h1, p {
+  color: #333;
+}
+
+#contents {
+		width: 100%;
+		display: table;
+}
+
+#contentsRow {
+		display: table-row;
+}
+
+.buildingPane {
+		width: 40%;
+		display: table-cell;
+}
+
+.buttonsPane {
+		width: 20%;
+		display: table-cell;
+}
+
+#economy {
+		background-color: #fdd;
+}
+
+#arms {
+		background-color: #dfd;
+}
+
+.title {
+		/*background-color: #ddf;*/
+}

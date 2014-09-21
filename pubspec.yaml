@@ -1,0 +1,5 @@
+name: ArmsRace_dart
+description: A sample web application
+dependencies:
+  browser: any
+  polymer: ">=0.12.0 <0.13.0"
