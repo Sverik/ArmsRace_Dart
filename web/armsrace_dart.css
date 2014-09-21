@@ -17,7 +17,7 @@ h1, p {
 		display: table;
 }
 
-#contentsRow {
+.row {
 		display: table-row;
 }
 
@@ -41,4 +41,78 @@ h1, p {
 
 .title {
 		/*background-color: #ddf;*/
+}
+
+.econBuilding {
+		width: 100%;
+		padding-bottom: 8px;
+}
+
+.econBuild {
+		float: left;
+		display: inline-block;
+}
+
+.econBuilt {
+		height: 100%;
+		background-color: #ffa;
+		text-align: center;
+		display: inline-block;
+}
+
+.econBuiltSpacer {
+		float: right;
+		height: 100%;
+		display: inline-block;
+}
+
+.buildButton {
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		float: left;
+		background-color: #7c8;
+		border: 1px solid #666;
+		font-size: x-large;
+		font-weight: normal;
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+}
+
+.buildButton.disabled {
+		background-color: #999;
+		cursor: default;
+}
+
+.buildButtonContent {
+		width: 100%;
+		text-align: center;
+		display: inline-block;
+		vertical-align: middle;
+}
+
+.buildDesc {
+		float: right;
+		background-color: #faf;
+}
+
+.clear {
+		clear: both;
+}
+
+.enabled {
+		visibility: visible;
+}
+
+.disabled {
+		visibility: visible;
+}
+
+.hidden {
+		visibility: hidden;
 }
