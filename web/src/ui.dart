@@ -195,6 +195,7 @@ class EconomyElement {
 	  		ImageElement image = new ImageElement(src: "farm.png", width: 40, height: 40);
 	  		image.classes.add("econImage");
 	  		image.style.marginLeft = '${pos.floor()}px';
+	  		image.style.marginTop = '${(pos.floor() % 5) - 2}px';
 	  		built.children.add(image);
 	  		pos += step;
   		}
