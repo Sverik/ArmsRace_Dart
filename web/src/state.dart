@@ -1,6 +1,20 @@
 library state;
 
 class State {
-	int money = 0;
+	int money = 100;
+
+	Map<int, int> boughtEcons = new Map();
+
+	int getEcons(int id) {
+		int count = boughtEcons[id];
+		if (count == null) {
+			count = 0;
+		}
+		return count;
+	}
+
+	void setEcons(int id, int count) {
+		boughtEcons[id] = count;
+	}
 
 }

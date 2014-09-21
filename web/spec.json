@@ -3,12 +3,26 @@
     {
       "id": 1,
       "name": "Small Farm",
-      "cost": 100
+      "cost": 100,
+      "income": 1
     },
     {
       "id": 2,
       "name": "Carpenter",
-      "cost": 500
+      "cost": 500,
+      "income": 3
+    },
+    {
+      "id": 3,
+      "name": "Blacksmith",
+      "cost": 1500,
+      "income": 10
+    },
+    {
+      "id": 4,
+      "name": "Mason",
+      "cost": 1500,
+      "income": 11
     }
   ]
 }
