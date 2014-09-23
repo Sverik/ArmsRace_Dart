@@ -191,8 +191,12 @@ class EconomyElement {
   		built.children.clear();
   		num step = (built.client.width - 44) / currentCount;
   		num pos = 0;
+  		String imageName = "sniper_60.png";
+  		if (spec.id == 2) {
+  			imageName = "tank_60.png";
+  		}
   		for (var i = 0 ; i < currentCount ; i++) {
-	  		ImageElement image = new ImageElement(src: "farm.png", width: 40, height: 40);
+	  		ImageElement image = new ImageElement(src: imageName, width: 60, height: 60);
 	  		image.classes.add("econImage");
 	  		image.style.marginLeft = '${pos.floor()}px';
 	  		image.style.marginTop = '${(pos.floor() % 5) - 2}px';
