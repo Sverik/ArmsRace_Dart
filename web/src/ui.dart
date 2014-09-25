@@ -191,8 +191,12 @@ class EconomyElement {
   		built.children.clear();
   		num step = (built.client.width - 44) / currentCount;
   		num pos = 0;
-  		String imageName = "sniper_60.png";
+  		String imageName = "assault_rifle_60.png";
   		if (spec.id == 2) {
+  			imageName = "sniper_60.png";
+  		} else if (spec.id == 3) {
+  			imageName = "machinegun_60.png";
+  		} else if (spec.id == 4) {
   			imageName = "tank_60.png";
   		}
   		for (var i = 0 ; i < currentCount ; i++) {
