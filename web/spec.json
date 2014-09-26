@@ -8,31 +8,31 @@
     },
     {
       "id": 2,
-      "name": "Carpenter",
+      "name": "Blacksmith",
       "cost": 500,
       "income": 3
     },
     {
       "id": 3,
-      "name": "Mill",
+      "name": "Docks",
       "cost": 1000,
       "income": 12
     },
     {
       "id": 4,
-      "name": "Brewery",
+      "name": "Pub",
       "cost": 1500,
       "income": 14
     },
     {
       "id": 5,
-      "name": "Mason",
+      "name": "Hotel",
       "cost": 2000,
       "income": 19
     },
     {
       "id": 6,
-      "name": "Blacksmith",
+      "name": "Steel Mill",
       "cost": 3000,
       "income": 25
     }

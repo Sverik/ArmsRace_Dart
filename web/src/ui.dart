@@ -191,13 +191,17 @@ class EconomyElement {
   		built.children.clear();
   		num step = (built.client.width - 44) / currentCount;
   		num pos = 0;
-  		String imageName = "assault_rifle_60.png";
+  		String imageName = "small_farm_60.png";
   		if (spec.id == 2) {
-  			imageName = "sniper_60.png";
+  			imageName = "blacksmith_60.png";
   		} else if (spec.id == 3) {
-  			imageName = "machinegun_60.png";
+  			imageName = "docks_60.png";
   		} else if (spec.id == 4) {
-  			imageName = "tank_60.png";
+  			imageName = "pub_60.png";
+  		} else if (spec.id == 5) {
+  			imageName = "hotel_60.png";
+  		} else if (spec.id == 6) {
+  			imageName = "steel_mill_60.png";
   		}
   		for (var i = 0 ; i < currentCount ; i++) {
 	  		ImageElement image = new ImageElement(src: imageName, width: 60, height: 60);
