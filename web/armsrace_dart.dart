@@ -6,6 +6,7 @@ import 'src/ui.dart';
 import 'src/state.dart';
 import 'src/spec.dart';
 import 'src/greet_ui.dart';
+import 'src/server.dart';
 
 /** Iga stepIntervalMs-inda millisekundi kohta tuleb üks samm teha. See muutuja näitab, millise millisekundi kohta viimati samm tehti. */
 int previousStepTime = -1000;
@@ -17,7 +18,9 @@ Spec spec;
 
 void main() {
 
-  GreetUi greet = new GreetUi(querySelector("#greet"));
+  Conn conn = new Conn();
+
+  GreetUi greet = new GreetUi(querySelector("#greet"), window.localStorage, conn);
 
   greet.init();
 
@@ -25,7 +28,7 @@ void main() {
 
 	// Kui load lõpetab, kutsub ta parameetriks kaasa antud funktsiooni ehk initsialiseerimine jätkub.
 	spec.load((){
-		state = new State();
+	  state = new State();
   	logic = new Logic(state, spec);
 
   	ui = new UserInterface(logic, state, spec);
