@@ -10,8 +10,41 @@
 				<script async src="packages/browser/dart.js"></script>
 
 				<link rel="stylesheet" href="armsrace_dart.css">
+				<link rel="stylesheet" href="greet.css">
 	</head>
 	<body>
+	  <div id="greet">
+	   <div id="greetContent">
+	     <h1>Arms Race</h1>
+	     <p>It's a race to build the mightiest army.</p>
+	     <p>blah-blah</p>
+       <p>I want to be known by the name </p>
+       <input id="nameInput" type="text" value="Racer" />
+       <input id="setName" type="button" value="Update Name" />
+       <h2 id="nameTitle">Racer</h2>
+       <table id="statsTable">
+        <tr>
+	        <td class="statsLabel">Position in Leaderboard</td>
+	        <td class="statsValue" id="statsPosition">1</td>
+        </tr>
+        <tr>
+	        <td class="statsLabel">Wins</td>
+	        <td class="statsValue" id="statsWins">26</td>
+        </tr>
+        <tr>
+	        <td class="statsLabel">Ties</td>
+	        <td class="statsValue" id="statsTies">93</td>
+        </tr>
+        <tr>
+	        <td class="statsLabel">Losses</td>
+	        <td class="statsValue" id="statsLosses">8</td>
+        </tr>
+       </table>
+       <div id="startButton" class="button">Start a Race!</div>
+       <div id="startStatus">Looking for an opponent... 0:26</div>
+	   </div>
+	  </div>  	
+	
 		<h1>Arms Race</h1>
 
 		<p>

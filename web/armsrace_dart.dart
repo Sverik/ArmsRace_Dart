@@ -5,6 +5,7 @@ import 'src/logic.dart';
 import 'src/ui.dart';
 import 'src/state.dart';
 import 'src/spec.dart';
+import 'src/greet_ui.dart';
 
 /** Iga stepIntervalMs-inda millisekundi kohta tuleb üks samm teha. See muutuja näitab, millise millisekundi kohta viimati samm tehti. */
 int previousStepTime = -1000;
@@ -15,6 +16,10 @@ State state;
 Spec spec;
 
 void main() {
+
+  GreetUi greet = new GreetUi(querySelector("#greet"));
+
+  greet.init();
 
 	spec = new Spec();
 
