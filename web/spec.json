@@ -35,6 +35,42 @@
       "name": "Steel Mill",
       "cost": 3000,
       "income": 25
+    },
+    {
+      "id": 7,
+      "name": "IC fab",
+      "cost": 3001,
+      "income": 20
+    },
+    {
+      "id": 8,
+      "name": "Plastic Factory",
+      "cost": 3002,
+      "income": 21
+    },
+    {
+      "id": 9,
+      "name": "Film Studio",
+      "cost": 3003,
+      "income": 22
+    },
+    {
+      "id": 10,
+      "name": "BTC Mine",
+      "cost": 10000,
+      "income": 30
+    }
+  ],
+  "armaments": [
+    {
+      "id": 1,
+      "name": "Assault Rifle",
+      "cost": 100
+    },
+    {
+      "id": 2,
+      "name": "Machine Gun",
+      "cost": 1600
     }
   ]
 }

@@ -33,6 +33,22 @@ class Logic {
 		incomeDirty = true;
 	}
 
+	void buildArm(int id) {
+    Armament arm = spec.getArm(id);
+    // Igaks juhuks.
+    if (arm == null) {
+      return;
+    }
+
+    // Kui raha ei ole, ei saa osta.
+    if (arm.cost > state.money) {
+      return;
+    }
+
+    state.setArms(id, state.getArms(id) + 1);
+    state.money -= arm.cost;
+	}
+
 	void step() {
 		stepCounter++;
 

@@ -27,6 +27,7 @@ void main() {
   	ui.moneyAmount = querySelector("#money_amount");
   	ui.incomeAmount = querySelector("#income_amount");
   	ui.economy = querySelector("#economy");
+  	ui.arms = querySelector("#arms");
   	ui.init();
 
   	requestTick();
