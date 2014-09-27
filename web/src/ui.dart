@@ -34,9 +34,10 @@ class UserInterface {
 
   String getArmImageName(int id) {
     switch (id) {
-      case 1: return "assault_rifle_60.png";
-      case 2: return "machine_gun_60.png";
-      default: return "tank_60.png";
+      case 1: return "assault_rifle.png";
+      case 2: return "machine_gun.png";
+      case 3: return "sniper.png";
+      default: return "tank.png";
     }
 
   }
@@ -65,17 +66,17 @@ class UserInterface {
 
 	String getEconImageName(int id) {
 	  switch (id) {
-	    case 1: return "small_farm_60.png";
-	    case 2: return "blacksmith_60.png";
-	    case 3: return "docks_60.png";
-	    case 4: return "pub_60.png";
-	    case 5: return "hotel_60.png";
-	    case 6: return "steel_mill_60.png";
-	    case 7: return "ic_fab_60.png";
-	    case 8: return "plastic_factory_60.png";
-	    case 9: return "film_studio_60.png";
-	    case 10: return "btc_mine_60.png";
-	    default: return "small_farm_60.png";
+	    case 1: return "small_farm.png";
+	    case 2: return "blacksmith.png";
+	    case 3: return "docks.png";
+	    case 4: return "pub.png";
+	    case 5: return "hotel.png";
+	    case 6: return "steel_mill.png";
+	    case 7: return "ic_fab.png";
+	    case 8: return "plastic_factory.png";
+	    case 9: return "film_studio.png";
+	    case 10: return "btc_mine.png";
+	    default: return "small_farm.png";
 	  }
 	}
 

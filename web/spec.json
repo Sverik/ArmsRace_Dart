@@ -71,6 +71,16 @@
       "id": 2,
       "name": "Machine Gun",
       "cost": 1600
+    },
+    {
+      "id": 3,
+      "name": "Sniper",
+      "cost": 5000
+    },
+    {
+      "id": 4,
+      "name": "Tank",
+      "cost": 40000
     }
   ]
 }
