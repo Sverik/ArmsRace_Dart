@@ -209,6 +209,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
 
 .econImage {
 		position: absolute;
+		z-index: 3;
 }
 
 .econCount {
@@ -227,4 +228,5 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
     0px 1px 0 #000,
     1px 1px 0 #000,
     0px -1px 0 #000;
+    z-index: 4;
 }
