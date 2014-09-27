@@ -33,12 +33,10 @@ h1, p {
 }
 
 .buttons {
-		background-color: blue;
 }
 
 .opponent {
 		width: 15%;
-		background-color: red;
 }
 
 .cash {
@@ -69,22 +67,16 @@ h1, p {
 .button {
 		position: relative;
 		background-color: green;
+    font-size: large;
+    text-align: center;
 		height: 40px;
-		width: 250px;
-		font-size: large;
-		text-align: center;
-		padding-top: 0px;
-		margin-top: 0px;
-		margin-left: -83px;
-}
-
-.buttonSpacer {
-		width: 50px;
-		height: 50px;
+		width: 200px;
+    padding-top: 20px;
+		margin-left: -70px;
 }
 
 .buttonContainer {
-		margin-top: 200px;
+		margin-top: 150px;
 }
 
 .attack {
@@ -92,7 +84,7 @@ h1, p {
 }
 
 .peace {
-		margin-top: 250px;
+		margin-top: 150px;
 }
 
 .rotate {
