@@ -277,7 +277,6 @@ class BuildableElement {
   	if (count != currentCount) {
   		// Uuendame näidatavat arvu
   		currentCount = count;
-//  		built.innerHtml = currentCount.toString();
   		built.children.clear();
   		num step = (built.client.width - 44) / currentCount;
   		num pos = 0;
