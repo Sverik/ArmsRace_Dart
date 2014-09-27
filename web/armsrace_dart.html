@@ -26,55 +26,14 @@
 
 		<div id="contents">
 			<div class="row">
-				<div id="economyPane" class="buildingPane">
+				<div id="economyPane" class="build pane">
 					<div class="title">
 						<h2>Economy</h2>
 					</div>
 					<div id="economy">
-<!--
-						<div id="econ1" class="econBuilding enabled">
-							<div class="econBuild">
-								<div id="buildButton" class="buildButton enabled">
-									<div class="buildButtonContent">
-									+
-									</div>
-								</div>
-								<div class="buildDesc">
-									<div id="name" class="b_name">Small Farm</div>
-									<div id="cost" class="b_cost">100</div>
-									<div id="income" class="b_income">1</div>
-								</div>
-							</div>
-							<div class="econBuiltSpacer">&nbsp;</div>
-							<div class="econBuilt">
-							5
-							</div>
-							<div class="clear"></div>
-						</div>
-
-						<div id="econ2" class="econBuilding hidden">
-							<div class="econBuild">
-								<div class="buildButton">
-									<div class="buildButtonContent">
-									+
-									</div>
-								</div>
-								<div class="buildDesc">
-									<div id="name" class="b_name">Carpenter</div>
-									<div id="cost" class="b_cost">500</div>
-									<div id="income" class="b_income">6</div>
-								</div>
-							</div>
-							<div class="econBuiltSpacer">&nbsp;</div>
-							<div class="econBuilt">
-							5
-							</div>
-							<div class="clear"></div>
-						</div>
--->
 					</div>
 				</div>
-				<div id="armsPane" class="buildingPane">
+				<div id="armsPane" class="build pane">
 					<div class="title">
 						<h2>Arms</h2>
 					</div>
@@ -82,13 +41,32 @@
 						Buttons and stuff
 					</div>
 				</div>
-				<div id="buttons" class="buttonsPane">
+				<div class="buttons pane">
+					<div class="buttonContainer">
+						<!--<div class="button buttonSpacer rotate"></div>-->
+						<div class="button attack rotate" id="btnAttack">
+							Attack
+						</div>
+						<div class="button peace rotate" id="btnPeace">
+							Propose/Accept peace
+						</div>
+					</div>
+				</div>
+				<div class="opponent pane">
+					<div class="title">
+						<h2>Opponent</h2>
+					</div>
+					<div id="opponentName">Mihkel</div>
+					<div id="opponentStatus">Status / Attack in 5 / Offered peace / Peace agreement effective</div>
 					<div>
-						Buttons
+						<label class="oppLabel">Buildings:</label>
+						<label class="oppValue" id="oppBuildings">3</label>
 					</div>
 					<div>
-						Buttons
+						<label class="oppLabel">Arms:</label>
+						<label class="oppValue" id="oppArms">5</label>
 					</div>
+					<div>stats?</div>
 				</div>
 			</div>
 		</div>

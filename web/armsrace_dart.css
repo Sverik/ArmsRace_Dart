@@ -14,21 +14,31 @@ h1, p {
 
 #contents {
 		width: 100%;
+		height: 1500px;
 		display: table;
+		table-layout: fixed;
 }
 
 .row {
 		display: table-row;
 }
 
-.buildingPane {
-		width: 40%;
+.pane {
 		display: table-cell;
+		vertical-align: top;
 }
 
-.buttonsPane {
-		width: 20%;
-		display: table-cell;
+.build {
+		width: 40%;
+}
+
+.buttons {
+		background-color: blue;
+}
+
+.opponent {
+		width: 15%;
+		background-color: red;
 }
 
 .cash {
@@ -54,6 +64,65 @@ h1, p {
 
 #arms {
 		padding-left: 5px;
+}
+
+.button {
+		position: relative;
+		background-color: green;
+		height: 40px;
+		width: 250px;
+		font-size: large;
+		text-align: center;
+		padding-top: 0px;
+		margin-top: 0px;
+		margin-left: -83px;
+}
+
+.buttonSpacer {
+		width: 50px;
+		height: 50px;
+}
+
+.buttonContainer {
+		margin-top: 200px;
+}
+
+.attack {
+		/*margin-top: 150px;*/
+}
+
+.peace {
+		margin-top: 250px;
+}
+
+.rotate {
+
+/* Safari */
+-webkit-transform: rotate(90deg);
+
+/* Firefox */
+-moz-transform: rotate(90deg);
+
+/* IE */
+-ms-transform: rotate(90deg);
+
+/* Opera */
+-o-transform: rotate(90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+
+}
+
+#opponentName {
+		font-size: large;
+		text-align: center;
+		padding-bottom: 10px;
+}
+
+#opponentStatus {
+		font-size: x-large;
+		line-height: 120%;
 }
 
 .title {
