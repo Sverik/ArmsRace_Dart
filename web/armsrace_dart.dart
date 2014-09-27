@@ -30,6 +30,10 @@ void main() {
   	ui.arms = querySelector("#arms");
   	ui.init();
 
+  	window.onResize.listen((e){
+  	  ui.resize();
+  	});
+
   	requestTick();
 	});
 

@@ -6,6 +6,8 @@ import 'state.dart';
 import 'spec.dart';
 
 class UserInterface {
+  bool layoutValid = false;
+
 	Logic logic;
 	State state;
 	Spec spec;
@@ -198,18 +200,28 @@ class UserInterface {
 	}
 
 	void update() {
+	  bool currentLayoutValid = layoutValid;
+
 		moneyAmount.setInnerHtml(state.money.toString());
 
 		econElems.forEach((int id, BuildableElement elem){
-			elem.updateState(state.money);
+			elem.updateState(state.money, layoutValid);
 		});
 
 		armElems.forEach((int id, BuildableElement elem){
-			elem.updateState(state.money);
+			elem.updateState(state.money, layoutValid);
 		});
 
 		incomeAmount.setInnerHtml(state.income.toString());
+
+		if (currentLayoutValid == layoutValid) {
+		  layoutValid = true;
+		}
 	}
+
+  void resize() {
+    layoutValid = false;
+  }
 }
 
 class ExtraData {
@@ -239,7 +251,7 @@ class BuildableElement {
 		this.buildButton = buildButton,
 		this.built = built;
 
-  void updateState(int money) {
+  void updateState(int money, bool layoutValid) {
   	int oldVisibilityState = visibilityState;
 
   	if (money >= cost) {
@@ -274,7 +286,7 @@ class BuildableElement {
   	}
 
   	int count = this.buildCount();
-  	if (count != currentCount) {
+  	if (count != currentCount || (! layoutValid)) {
   		// Uuendame näidatavat arvu
   		currentCount = count;
   		built.children.clear();
