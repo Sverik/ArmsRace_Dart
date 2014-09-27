@@ -118,6 +118,7 @@ class UserInterface {
     DivElement buildButton = new DivElement();
     build.children.add(buildButton);
     buildButton.classes.add("buildButton");
+    buildButton.classes.add("button");
     buildButton.classes.add("hidden");
     buildButton.onClick.listen((MouseEvent notUsed){
       buildHook(id);

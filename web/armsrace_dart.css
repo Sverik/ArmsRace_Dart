@@ -65,7 +65,7 @@ h1, p {
 		padding-left: 5px;
 }
 
-.button {
+.decisionButton {
 		position: relative;
 		background-color: green;
     font-size: large;
@@ -161,6 +161,9 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
 		border: 1px solid #666;
 		font-size: x-large;
 		font-weight: normal;
+}
+
+.button {
 		cursor: pointer;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
