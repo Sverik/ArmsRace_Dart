@@ -15,12 +15,13 @@ Logic logic;
 UserInterface ui;
 State state;
 Spec spec;
+bool running = false;
 
 void main() {
 
   Conn conn = new Conn();
 
-  GreetUi greet = new GreetUi(querySelector("#greet"), window.localStorage, conn);
+  GreetUi greet = new GreetUi(querySelector("#greet"), window.localStorage, conn, startGame);
 
   greet.init();
 
@@ -29,7 +30,7 @@ void main() {
 	// Kui load lõpetab, kutsub ta parameetriks kaasa antud funktsiooni ehk initsialiseerimine jätkub.
 	spec.load((){
 	  state = new State();
-  	logic = new Logic(state, spec);
+  	logic = new Logic(state, spec, conn);
 
   	ui = new UserInterface(logic, state, spec);
   	ui.moneyAmount = querySelector("#money_amount");
@@ -41,14 +42,20 @@ void main() {
   	window.onResize.listen((e){
   	  ui.resize();
   	});
-
-  	requestTick();
 	});
 
 }
 
+void startGame(GameState game) {
+  ui.updateState(game);
+  running = true;
+  requestTick();
+}
+
 void requestTick() {
-	tick(new DateTime.now().millisecondsSinceEpoch);
+  if (running) {
+	 tick(new DateTime.now().millisecondsSinceEpoch);
+  }
 }
 
 void tick(int currentTime) {

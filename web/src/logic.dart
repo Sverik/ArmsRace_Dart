@@ -2,20 +2,24 @@ library logic;
 
 import 'state.dart';
 import 'spec.dart';
+import 'server.dart';
 
 class Logic {
+  static const pollIntervalSteps = 15; // 5 sammu sekundis, 3 sekundi tagant poll
 
 	int stepCounter = 0;
+	int lastPollStep = 0;
 
 	Spec spec;
 	State state;
+	Conn conn;
 
 	bool incomeDirty = true;
 
-	Logic(State state, Spec spec) : this.state = state, this.spec = spec {
+	Logic(State state, Spec spec, Conn conn) : this.state = state, this.spec = spec, this.conn = conn {
 	}
 
-	void buildEcon(int id) {
+	void buildEcon(String id) {
 		EconomicBuilding econ = spec.getEcon(id);
 		// Igaks juhuks.
 		if (econ == null) {
@@ -33,7 +37,7 @@ class Logic {
 		incomeDirty = true;
 	}
 
-	void buildArm(int id) {
+	void buildArm(String id) {
     Armament arm = spec.getArm(id);
     // Igaks juhuks.
     if (arm == null) {
@@ -55,7 +59,7 @@ class Logic {
 		if (incomeDirty) {
 			state.income = 0;
 
-			spec.econ.forEach((int id, EconomicBuilding econB){
+			spec.econ.forEach((String id, EconomicBuilding econB){
 				int count = state.getEcons(id);
 				state.income += count * econB.income;
 			});
@@ -64,5 +68,15 @@ class Logic {
 		}
 
 		state.money += state.income;
+
+		handleRemote();
 	}
+
+  void handleRemote() {
+    if (stepCounter - lastPollStep >= pollIntervalSteps) {
+      conn.pollGame(state, (GameState gameState){
+      });
+      lastPollStep = stepCounter;
+    }
+  }
 }

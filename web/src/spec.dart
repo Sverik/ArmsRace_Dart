@@ -4,8 +4,8 @@ import 'dart:html';
 import 'dart:convert';
 
 class Spec {
-	Map<int, EconomicBuilding> econ = new Map();
-	Map<int, Armament> arms = new Map();
+	Map<String, EconomicBuilding> econ = new Map();
+	Map<String, Armament> arms = new Map();
 
 	void load(Function callback) {
 	  var semicolon = ';'.codeUnitAt(0);
@@ -29,24 +29,24 @@ class Spec {
     });
 	}
 
-	EconomicBuilding getEcon(int id) {
+	EconomicBuilding getEcon(String id) {
 		return econ[id];
 	}
 
-	Armament getArm(int id) {
+	Armament getArm(String id) {
 	  return arms[id];
 	}
 
 }
 
 class EconomicBuilding {
-	int id;
+	String id;
 	String name;
 	int cost;
 	int income;
 
 	EconomicBuilding(var jsonMap) {
-		id = jsonMap["id"];
+		id = jsonMap["id"].toString();
 		name = jsonMap["name"];
 		cost = jsonMap["cost"];
 		income = jsonMap["income"];
@@ -54,12 +54,12 @@ class EconomicBuilding {
 }
 
 class Armament {
-  int id;
+  String id;
   String name;
   int cost;
 
   Armament(var jsonMap) {
-    id = jsonMap["id"];
+    id = jsonMap["id"].toString();
     name = jsonMap["name"];
     cost = jsonMap["cost"];
   }

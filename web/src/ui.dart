@@ -4,6 +4,7 @@ import 'dart:html';
 import 'logic.dart';
 import 'state.dart';
 import 'spec.dart';
+import 'server.dart';
 
 class UserInterface {
   bool layoutValid = false;
@@ -17,13 +18,19 @@ class UserInterface {
 	Element economy;
 	Element arms;
 
-	Map<int, BuildableElement> armElems = new Map();
-	Map<int, BuildableElement> econElems = new Map();
+	Element opponentName;
+
+	GameState game = null;
+
+	Map<String, BuildableElement> armElems = new Map();
+	Map<String, BuildableElement> econElems = new Map();
 
 	UserInterface(Logic logic, State state, Spec spec) :
 		this.logic = logic,
 		this.state = state,
-		this.spec = spec;
+		this.spec = spec {
+	  opponentName = querySelector("#opponentName");
+	}
 
 	void init() {
 
@@ -32,17 +39,17 @@ class UserInterface {
 
 	}
 
-  String getArmImageName(int id) {
+  String getArmImageName(String id) {
     switch (id) {
-      case 1: return "assault_rifle.png";
-      case 2: return "machine_gun.png";
-      case 3: return "sniper.png";
+      case '1': return "assault_rifle.png";
+      case '2': return "machine_gun.png";
+      case '3': return "sniper.png";
       default: return "tank.png";
     }
 
   }
 
-	void addArmElem(int id, Armament arm) {
+	void addArmElem(String id, Armament arm) {
     addElem("arm", id, logic.buildArm, arm.name, arm.cost, arms,
         [new ExtraData("dam", "4"),
          new ExtraData("hp", "10")],
@@ -64,23 +71,23 @@ class UserInterface {
     );
 	}
 
-	String getEconImageName(int id) {
+	String getEconImageName(String id) {
 	  switch (id) {
-	    case 1: return "small_farm.png";
-	    case 2: return "blacksmith.png";
-	    case 3: return "docks.png";
-	    case 4: return "pub.png";
-	    case 5: return "hotel.png";
-	    case 6: return "steel_mill.png";
-	    case 7: return "ic_fab.png";
-	    case 8: return "plastic_factory.png";
-	    case 9: return "film_studio.png";
-	    case 10: return "btc_mine.png";
+	    case '1': return "small_farm.png";
+	    case '2': return "blacksmith.png";
+	    case '3': return "docks.png";
+	    case '4': return "pub.png";
+	    case '5': return "hotel.png";
+	    case '6': return "steel_mill.png";
+	    case '7': return "ic_fab.png";
+	    case '8': return "plastic_factory.png";
+	    case '9': return "film_studio.png";
+	    case '10': return "btc_mine.png";
 	    default: return "small_farm.png";
 	  }
 	}
 
-	void addEconElem(int id, EconomicBuilding econ) {
+	void addEconElem(String id, EconomicBuilding econ) {
 	  addElem("econ", id, logic.buildEcon, econ.name, econ.cost, economy,
 	      [new ExtraData("income", econ.income.toString())],
 	      (DivElement buildingRow, DivElement buildButton, DivElement built){
@@ -102,7 +109,7 @@ class UserInterface {
 
 	}
 
-	void addElem(String idPrefix, int id, void buildHook(int id), String itemName, int cost, Element container, List<ExtraData> extra, void processCreated(DivElement buildingRow, DivElement buildButton, DivElement built)) {
+	void addElem(String idPrefix, String id, void buildHook(String id), String itemName, int cost, Element container, List<ExtraData> extra, void processCreated(DivElement buildingRow, DivElement buildButton, DivElement built)) {
     // <div id="econ${econ.id}" class="econBuilding hidden">
     DivElement buildingRow = new DivElement();
     buildingRow.id = '$idPrefix$id';
@@ -206,11 +213,11 @@ class UserInterface {
 
 		moneyAmount.setInnerHtml(state.money.toString());
 
-		econElems.forEach((int id, BuildableElement elem){
+		econElems.forEach((String id, BuildableElement elem){
 			elem.updateState(state.money, layoutValid);
 		});
 
-		armElems.forEach((int id, BuildableElement elem){
+		armElems.forEach((String id, BuildableElement elem){
 			elem.updateState(state.money, layoutValid);
 		});
 
@@ -223,6 +230,12 @@ class UserInterface {
 
   void resize() {
     layoutValid = false;
+  }
+
+  void updateState(GameState game) {
+    this.game = game;
+
+    opponentName.innerHtml = (game.yourNumber == 1 ? game.player2 : game.player1);
   }
 }
 

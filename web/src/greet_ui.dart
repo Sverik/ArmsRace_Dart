@@ -6,7 +6,7 @@ import 'dart:async';
 
 class GreetUi {
   static const pollIntervalSec = 5;
-  static const maxQueueWaitSec = 30;
+  static const maxQueueWaitSec = 300;
 
   Element greetDiv;
   Element nameElem;
@@ -24,10 +24,13 @@ class GreetUi {
   bool startEnabled = false;
   int findOpponentTryCount;
 
-  GreetUi(Element greetDiv, Storage storage, Conn conn) :
+  var gameStartCallback;
+
+  GreetUi(Element greetDiv, Storage storage, Conn conn, void gameStartCallback(GameState)) :
     this.greetDiv = greetDiv,
     this.storage = storage,
-    this.conn = conn {
+    this.conn = conn,
+    this.gameStartCallback = gameStartCallback {
 
     nameElem = greetDiv.querySelector("#nameTitle");
     nameInput = greetDiv.querySelector("#nameInput");
@@ -115,8 +118,8 @@ class GreetUi {
     conn.queue( queueResponse );
   }
 
-  void queueResponse(String gameId) {
-    if (gameId == null) {
+  void queueResponse(GameState game) {
+    if (game == null) {
       // Ei ole mängu leitud
       if (new DateTime.now().millisecondsSinceEpoch - queuePollStart < maxQueueWaitSec * 1000) {
         // Registreerime uue päringu
@@ -132,6 +135,7 @@ class GreetUi {
     } else {
       // Mäng leitud
       greetDiv.style.visibility = "hidden";
+      gameStartCallback(game);
     }
   }
 }
