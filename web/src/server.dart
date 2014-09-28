@@ -3,36 +3,74 @@ library server;
 import 'dart:html';
 import 'dart:convert';
 import 'dart:async';
+import 'package:cookie/cookie.dart' as cookie;
 
 class Conn {
-  String userSecret = null;
-//  String url = "http://localhost:8081";
-  String url = "http://leafy-racer-709.appspot.com";
+  String url = "http://localhost:8080";
+//  String url = "http://leafy-racer-709.appspot.com";
 
   String enc(Object o) {
     return o.toString();
   }
 
-  void getUserInfo(String name, void callback(PlayerInfo info)) {
-    Future<HttpRequest> request = HttpRequest.request('$url/player/$name');
+  void getUserInfo(void callback(PlayerInfo info)) {
+    cookie.set("secret", getSecret());
+    Future<HttpRequest> request = HttpRequest.request('$url/player/', withCredentials: true);
     request.catchError((o){
-      PlayerInfo pi = new PlayerInfo();
-//      pi.name = "error: " + JSON.encode(o, toEncodable: (v){ return v.toString(); });
-      pi.name = "error: " + enc(o);
-      callback(pi);
+      callback( null );
     });
     request.then((request){
-      PlayerInfo pi = new PlayerInfo(jsonBlob: request.response);
+      PlayerInfo pi = readJson(request.response);
       callback(pi);
     });
   }
+
+  void register(String name, callback(PlayerInfo info)) {
+    Future<HttpRequest> request = HttpRequest.request('$url/register/$name', method: "POST");
+    request.catchError((o){
+      callback( null );
+    });
+    request.then((request){
+      PlayerInfo pi = readJson(request.response);
+      callback(pi);
+    });
+  }
+
+  PlayerInfo readJson(String jsonBlob) {
+    var map = JSON.decode(jsonBlob);
+    storeSecret( map["secret"] );
+    PlayerInfo pi = new PlayerInfo(map);
+    return pi;
+  }
+
+  void storeSecret(String secret) {
+    window.localStorage["secret"] = secret;
+  }
+
+  String getSecret() {
+    try {
+      String secret = window.localStorage["secret"];
+      secret = (secret == null ? "" : secret);
+      return secret;
+    } catch (e) {
+      return "";
+    }
+  }
+
 }
 
 class PlayerInfo {
   String name;
+  int wins;
+  int played;
 
-  PlayerInfo({String jsonBlob}) {
-    var map = JSON.decode(jsonBlob);
-    name = map["name"];
+  PlayerInfo(var map) {
+    try {
+      name = map["username"];
+      wins = map["wins"];
+      played = map["played"];
+    } catch (e) {
+      name = e.toString();
+    }
   }
 }

@@ -25,6 +25,10 @@ packages:
     description: collection
     source: hosted
     version: "1.0.0"
+  cookie:
+    description: cookie
+    source: hosted
+    version: "0.0.4"
   csslib:
     description: csslib
     source: hosted
