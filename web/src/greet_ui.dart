@@ -2,18 +2,27 @@ library greet_ui;
 
 import 'dart:html';
 import 'server.dart';
+import 'dart:async';
 
 class GreetUi {
+  static const pollIntervalSec = 5;
+  static const maxQueueWaitSec = 30;
+
   Element greetDiv;
   Element nameElem;
   TextInputElement nameInput;
   ButtonInputElement setNameButton;
   Element registerDiv;
   Element startButton;
+  Element startStatus;
   Storage storage;
   Conn conn;
 
+  int queuePollStart;
+
   PlayerInfo playerInfo = null;
+  bool startEnabled = false;
+  int findOpponentTryCount;
 
   GreetUi(Element greetDiv, Storage storage, Conn conn) :
     this.greetDiv = greetDiv,
@@ -25,6 +34,7 @@ class GreetUi {
     setNameButton = greetDiv.querySelector("#setName");
     registerDiv = greetDiv.querySelector("#register");
     startButton = greetDiv.querySelector("#startButton");
+    startStatus = greetDiv.querySelector("#startStatus");
 
   }
 
@@ -37,20 +47,43 @@ class GreetUi {
 
     conn.getUserInfo(initialCheck);
 
+    nameInput.readOnly = false;
+    setNameButton.disabled = false;
+    _setPlayerInfo(playerInfo);
+    startStatus.innerHtml = "";
+
     startButton.onClick.listen((e){
-      if (playerInfo == null) {
+      if ( ! startEnabled) {
         return;
       }
-      greetDiv.style.visibility = "hidden";
+
+      _enableStart(false);
+      findOpponentTryCount = 0;
+      queuePollStart = new DateTime.now().millisecondsSinceEpoch;
+      queryQueue();
     });
 
   }
 
   void _setPlayerInfo(PlayerInfo playerInfo) {
     this.playerInfo = playerInfo;
-    nameElem.innerHtml = playerInfo.name;
-    startButton.classes.remove("sDisabled");
-    startButton.classes.add("sEnabled");
+    if (playerInfo != null) {
+      nameElem.innerHtml = playerInfo.name;
+    } else {
+      nameElem.innerHtml = "...";
+    }
+    _enableStart(playerInfo != null);
+  }
+
+  void _enableStart(bool enable) {
+    if (enable) {
+      startButton.classes.remove("sDisabled");
+      startButton.classes.add("sEnabled");
+    } else {
+      startButton.classes.add("sDisabled");
+      startButton.classes.remove("sEnabled");
+    }
+    startEnabled = enable;
   }
 
   void initialCheck(PlayerInfo playerInfo) {
@@ -73,6 +106,32 @@ class GreetUi {
     } else {
       registerDiv.style.visibility = "hidden";
       _setPlayerInfo(playerInfo);
+    }
+  }
+
+  void queryQueue() {
+    findOpponentTryCount++;
+    startStatus.innerHtml = 'Searching for opponent, try #$findOpponentTryCount...';
+    conn.queue( queueResponse );
+  }
+
+  void queueResponse(String gameId) {
+    if (gameId == null) {
+      // Ei ole mängu leitud
+      if (new DateTime.now().millisecondsSinceEpoch - queuePollStart < maxQueueWaitSec * 1000) {
+        // Registreerime uue päringu
+        new Future.delayed(const Duration(seconds: pollIntervalSec), () {
+          queryQueue();
+        });
+
+      } else {
+        // Lõpetame pollimise
+        startStatus.innerHtml = "No opponent found, please try again later.";
+        _enableStart(true);
+      }
+    } else {
+      // Mäng leitud
+      greetDiv.style.visibility = "hidden";
     }
   }
 }

@@ -36,6 +36,10 @@
 	font-size: large;
 }
 
+#startStatus {
+	font-style: italic;
+}
+
 .sDisabled {
 	color: gray;
 	border: 1px dotted gray;

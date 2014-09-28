@@ -3,18 +3,13 @@ library server;
 import 'dart:html';
 import 'dart:convert';
 import 'dart:async';
-import 'package:cookie/cookie.dart' as cookie;
 
 class Conn {
   String url = "http://localhost:8080";
 //  String url = "http://leafy-racer-709.appspot.com";
 
-  String enc(Object o) {
-    return o.toString();
-  }
-
   void getUserInfo(void callback(PlayerInfo info)) {
-    cookie.set("secret", getSecret());
+    document.cookie = "secret=${getSecret()}";
     Future<HttpRequest> request = HttpRequest.request('$url/player/', withCredentials: true);
     request.catchError((o){
       callback( null );
@@ -33,6 +28,17 @@ class Conn {
     request.then((request){
       PlayerInfo pi = readJson(request.response);
       callback(pi);
+    });
+  }
+
+  void queue(callback(String)) {
+    Future<HttpRequest> request = HttpRequest.request('$url/queue/', withCredentials: true, method: "POST");
+    request.catchError((e) {
+      callback(null);
+    });
+    request.then((HttpRequest r){
+      // TODO
+      callback(r.response);
     });
   }
 
