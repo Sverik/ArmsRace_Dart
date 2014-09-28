@@ -32,7 +32,16 @@
 #startButton {
 	display: table;
 	margin: 0px auto 20px auto;
-	border: 1px solid black;
 	padding: 10px 10px 10px 10px;
 	font-size: large;
+}
+
+.sDisabled {
+	color: gray;
+	border: 1px dotted gray;
+}
+
+.sEnabled {
+	color: black;
+  border: 1px solid black;
 }

@@ -9,8 +9,11 @@ class GreetUi {
   TextInputElement nameInput;
   ButtonInputElement setNameButton;
   Element registerDiv;
+  Element startButton;
   Storage storage;
   Conn conn;
+
+  PlayerInfo playerInfo = null;
 
   GreetUi(Element greetDiv, Storage storage, Conn conn) :
     this.greetDiv = greetDiv,
@@ -21,6 +24,7 @@ class GreetUi {
     nameInput = greetDiv.querySelector("#nameInput");
     setNameButton = greetDiv.querySelector("#setName");
     registerDiv = greetDiv.querySelector("#register");
+    startButton = greetDiv.querySelector("#startButton");
 
   }
 
@@ -33,11 +37,20 @@ class GreetUi {
 
     conn.getUserInfo(initialCheck);
 
-    Element startButton = greetDiv.querySelector("#startButton");
     startButton.onClick.listen((e){
+      if (playerInfo == null) {
+        return;
+      }
       greetDiv.style.visibility = "hidden";
     });
 
+  }
+
+  void _setPlayerInfo(PlayerInfo playerInfo) {
+    this.playerInfo = playerInfo;
+    nameElem.innerHtml = playerInfo.name;
+    startButton.classes.remove("sDisabled");
+    startButton.classes.add("sEnabled");
   }
 
   void initialCheck(PlayerInfo playerInfo) {
@@ -48,7 +61,7 @@ class GreetUi {
     } else {
       // mängija info kätte saadud
       // mängija info UI nähtavaks
-      nameElem.innerHtml = playerInfo.name;
+      _setPlayerInfo(playerInfo);
     }
   }
 
@@ -59,7 +72,7 @@ class GreetUi {
       setNameButton.disabled = false;
     } else {
       registerDiv.style.visibility = "hidden";
-      nameElem.innerHtml = playerInfo.name;
+      _setPlayerInfo(playerInfo);
     }
   }
 }
