@@ -5,11 +5,6 @@ import 'spec.dart';
 import 'server.dart';
 
 class Logic {
-  static const pollIntervalSteps = 15; // 5 sammu sekundis, 3 sekundi tagant poll
-
-	int stepCounter = 0;
-	int lastPollStep = 0;
-
 	Spec spec;
 	State state;
 	Conn conn;
@@ -54,7 +49,6 @@ class Logic {
 	}
 
 	void step() {
-		stepCounter++;
 
 		if (incomeDirty) {
 			state.income = 0;
@@ -69,14 +63,10 @@ class Logic {
 
 		state.money += state.income;
 
-		handleRemote();
 	}
 
-  void handleRemote() {
-    if (stepCounter - lastPollStep >= pollIntervalSteps) {
-      conn.pollGame(state, (GameState gameState){
-      });
-      lastPollStep = stepCounter;
-    }
-  }
+	void updateState(GameState gameState) {
+	  // TODO
+	}
+
 }

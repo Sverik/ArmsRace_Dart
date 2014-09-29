@@ -11,6 +11,7 @@
 
 				<link rel="stylesheet" href="armsrace_dart.css">
 				<link rel="stylesheet" href="greet.css">
+				<link rel="stylesheet" href="gameEnd.css">
 	</head>
 	<body>
 	  <div id="greet">
@@ -45,9 +46,22 @@
        <div id="startButton" class="button sDisabled">Start a Race!</div>
        <div id="startStatus"></div>
 	   </div>
-	  </div>  	
+	  </div>
+	  
+	  <div id="gameEnd">
+	   <div id="gameEndContent">
+  	  <h1>The race is over!</h1>
+	    <p>Miks lõppes? Aeg läbi, üks või teine ründas, lepiti kokku rahus.</p>
+	    <p><label id="debug"></label></p>
+  	  <div id="closeButton" class="button">Return to menu</div>
+	   </div>
+	  </div>
 	
 		<h1>Arms Race</h1>
+		
+		<p>
+		  WAT
+		</p>
 
 		<p>
 			<label class="cash label">Cash:</label>
@@ -57,6 +71,14 @@
 		<p>
 			<label class="income label">Income:</label>
 			<label id="income_amount" class="income amount"></label>
+		</p>
+		
+		<p>
+		  <label class="label">Race will end</label>
+		  <label class="label" id="gameEndType">peacefully</label>
+		  <label class="label">in</label>
+		  <label class="label" id="gameTimeRemaining">4:31</label>
+		  <label class="label">.</label>
 		</p>
 
 		<div id="contents">
@@ -89,7 +111,7 @@
 					<div class="title">
 						<h2>Opponent</h2>
 					</div>
-					<div id="opponentName">Mihkel</div>
+					<div id="opponentName"></div>
 					<div id="opponentStatus">Status / Attack in 5 / Offered peace / Peace agreement effective</div>
 					<div>
 						<label class="oppLabel">Buildings:</label>

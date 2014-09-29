@@ -230,3 +230,13 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
     0px -1px 0 #000;
     z-index: 4;
 }
+
+#gameEndType {
+	font-weight: bold;
+	color: black;
+}
+
+#gameTimeRemaining {
+	font-weight: bold;
+  color: black;
+}

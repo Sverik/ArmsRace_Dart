@@ -8,6 +8,8 @@ import 'state.dart';
 class Conn {
   String url = "http://localhost:8080";
 //  String url = "http://leafy-racer-709.appspot.com";
+  /** serveri aeg miinus kohalik aeg */
+  int serverLocalTimeDiff = 0;
 
   void _setCookie() {
     document.cookie = "secret=${_getSecret()}; expires=Thu, 1 Jan 2099 12:00:00 UTC";
@@ -55,10 +57,15 @@ class Conn {
     try {
       var map = JSON.decode(jsonBlob);
       GameState gs = new GameState(map);
+      serverLocalTimeDiff = gs.currentTime - new DateTime.now().millisecondsSinceEpoch;
       return gs;
     } catch (e) {
       return null;
     }
+  }
+
+  int getCurrentServerTime() {
+    return new DateTime.now().millisecondsSinceEpoch + serverLocalTimeDiff;
   }
 
   PlayerInfo getPlayerInfo(String jsonBlob) {
@@ -68,7 +75,7 @@ class Conn {
     return pi;
   }
 
-  void pollGame(State state, void response(GameState)) {
+  void pollGame(State state, String gameId, void response(GameState)) {
     String jsonBlob = JSON.encode(state, toEncodable: (Object o){
       Map<String, Object> map = new Map();
       map["money"] = state.money;
@@ -79,7 +86,7 @@ class Conn {
       return map;
     });
     Future<HttpRequest> request = HttpRequest.request(
-        '$url/game/',
+        '$url/game/$gameId',
         withCredentials: true,
         method: "POST",
         sendData: jsonBlob,
@@ -135,6 +142,7 @@ class GameState {
 
    int startTime;
    int endTime;
+   int currentTime;
 
    int attackTime;
    int attacker;
@@ -160,6 +168,7 @@ class GameState {
 
        startTime = map["startTime"];
        endTime = map["endTime"];
+       currentTime = map["currentTime"];
 
        attackTime = map["attackTime"];
        attacker = map["attacker"];

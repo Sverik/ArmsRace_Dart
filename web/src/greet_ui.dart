@@ -68,6 +68,12 @@ class GreetUi {
 
   }
 
+  void show() {
+    startStatus.innerHtml = "";
+    _enableStart(true);
+    greetDiv.style.visibility = "visible";
+  }
+
   void _setPlayerInfo(PlayerInfo playerInfo) {
     this.playerInfo = playerInfo;
     if (playerInfo != null) {

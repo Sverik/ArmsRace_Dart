@@ -12,6 +12,7 @@ class UserInterface {
 	Logic logic;
 	State state;
 	Spec spec;
+	Conn conn;
 
 	Element moneyAmount;
 	Element incomeAmount;
@@ -19,17 +20,20 @@ class UserInterface {
 	Element arms;
 
 	Element opponentName;
+	Element gameTimeRemaining;
 
 	GameState game = null;
 
 	Map<String, BuildableElement> armElems = new Map();
 	Map<String, BuildableElement> econElems = new Map();
 
-	UserInterface(Logic logic, State state, Spec spec) :
+	UserInterface(Logic logic, State state, Spec spec, Conn conn) :
 		this.logic = logic,
 		this.state = state,
-		this.spec = spec {
+		this.spec = spec,
+		this.conn = conn {
 	  opponentName = querySelector("#opponentName");
+	  gameTimeRemaining = querySelector("#gameTimeRemaining");
 	}
 
 	void init() {
@@ -223,9 +227,21 @@ class UserInterface {
 
 		incomeAmount.setInnerHtml(state.income.toString());
 
+		_updateTime();
+
 		if (currentLayoutValid == layoutValid) {
 		  layoutValid = true;
 		}
+
+	}
+
+	void _updateTime() {
+    int remainingMilliseconds = game.endTime - conn.getCurrentServerTime();
+    int minutes = remainingMilliseconds ~/ (60 * 1000);
+    remainingMilliseconds -= minutes * 60 * 1000;
+    int seconds = remainingMilliseconds ~/ 1000;
+    gameTimeRemaining.innerHtml = '$minutes:$seconds';
+
 	}
 
   void resize() {
@@ -233,9 +249,13 @@ class UserInterface {
   }
 
   void updateState(GameState game) {
+    // uuendame ainult uue mängu puhul
+    if (this.game == null || game.id != this.game.id) {
+      opponentName.innerHtml = (game.yourNumber == 1 ? game.player2 : game.player1);
+    }
+
     this.game = game;
 
-    opponentName.innerHtml = (game.yourNumber == 1 ? game.player2 : game.player1);
   }
 }
 
