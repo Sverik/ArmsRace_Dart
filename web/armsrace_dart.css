@@ -67,13 +67,14 @@ h1, p {
 
 .decisionButton {
 		position: relative;
-		background-color: green;
+		background-color: #efe;
     font-size: large;
     text-align: center;
 		height: 40px;
 		width: 200px;
     padding-top: 20px;
 		margin-left: -70px;
+		border: 1px solid black;
 }
 
 .buttonContainer {

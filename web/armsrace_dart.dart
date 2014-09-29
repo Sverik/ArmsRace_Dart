@@ -63,6 +63,8 @@ void main() {
 
 void startGame(GameState game) {
   gameState = game;
+  state.reset();
+  ui.reset();
   ui.updateState(game);
   logic.updateState(game);
   running = true;

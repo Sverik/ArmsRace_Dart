@@ -48,6 +48,7 @@ class GreetUi {
       conn.register( nameInput.value, playerRegistered );
     });
 
+    _enableStart(false);
     conn.getUserInfo(initialCheck);
 
     nameInput.readOnly = false;
@@ -70,7 +71,6 @@ class GreetUi {
 
   void show() {
     startStatus.innerHtml = "";
-    _enableStart(true);
     greetDiv.style.visibility = "visible";
   }
 
@@ -125,7 +125,7 @@ class GreetUi {
   }
 
   void queueResponse(GameState game) {
-    if (game == null || game.finished == true || game.endTime < conn.getCurrentServerTime()) {
+    if (game == null || game.finished == true /* || game.endTime < conn.getCurrentServerTime() */) {
       // Ei ole mängu leitud
       if (new DateTime.now().millisecondsSinceEpoch - queuePollStart < maxQueueWaitSec * 1000) {
         // Registreerime uue päringu
@@ -142,6 +142,7 @@ class GreetUi {
       // Mäng leitud
       greetDiv.style.visibility = "hidden";
       gameStartCallback(game);
+      _enableStart(true);
     }
   }
 }

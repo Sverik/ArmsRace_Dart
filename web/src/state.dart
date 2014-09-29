@@ -1,14 +1,14 @@
 library state;
 
 class State {
-	int money = 500;
-	int income = 0;
+	int money;
+	int income;
 
-	Map<String, int> boughtEcons = new Map();
-	Map<String, int> boughtArms = new Map();
+	Map<String, int> boughtEcons;
+	Map<String, int> boughtArms;
 
-	bool attacked = false;
-	bool peaceOffer = false;
+	bool attacked;
+	bool peaceOffer;
 
 	State({var map}) {
 	  if (map != null) {
@@ -18,6 +18,17 @@ class State {
   	  boughtEcons = map['econs'];
   	  boughtArms = map['arms'];
 	  }
+	}
+
+	void reset() {
+	  money = 500;
+	  income = 0;
+
+	  boughtEcons = new Map();
+	  boughtArms = new Map();
+
+	  attacked = false;
+	  peaceOffer = false;
 	}
 
 	int getArms(String id) {

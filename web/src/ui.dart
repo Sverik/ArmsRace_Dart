@@ -49,6 +49,10 @@ class UserInterface {
 
 	}
 
+	void reset() {
+
+	}
+
   String getArmImageName(String id) {
     switch (id) {
       case '1': return "assault_rifle.png";
@@ -60,7 +64,7 @@ class UserInterface {
   }
 
 	void addArmElem(String id, Armament arm) {
-    addElem("arm", id, logic.buildArm, arm.name, arm.cost, arms,
+    _addElem("arm", id, logic.buildArm, arm.name, arm.cost, arms,
         [new ExtraData("dam", "4"),
          new ExtraData("hp", "10")],
         (DivElement buildingRow, DivElement buildButton, DivElement built){
@@ -98,7 +102,7 @@ class UserInterface {
 	}
 
 	void addEconElem(String id, EconomicBuilding econ) {
-	  addElem("econ", id, logic.buildEcon, econ.name, econ.cost, economy,
+	  _addElem("econ", id, logic.buildEcon, econ.name, econ.cost, economy,
 	      [new ExtraData("income", econ.income.toString())],
 	      (DivElement buildingRow, DivElement buildButton, DivElement built){
 
@@ -119,7 +123,7 @@ class UserInterface {
 
 	}
 
-	void addElem(String idPrefix, String id, void buildHook(String id), String itemName, int cost, Element container, List<ExtraData> extra, void processCreated(DivElement buildingRow, DivElement buildButton, DivElement built)) {
+	void _addElem(String idPrefix, String id, void buildHook(String id), String itemName, int cost, Element container, List<ExtraData> extra, void processCreated(DivElement buildingRow, DivElement buildButton, DivElement built)) {
     // <div id="econ${econ.id}" class="econBuilding hidden">
     DivElement buildingRow = new DivElement();
     buildingRow.id = '$idPrefix$id';
@@ -250,6 +254,9 @@ class UserInterface {
 
 	void _updateTime() {
     int remainingMilliseconds = game.endTime - conn.getCurrentServerTime();
+    if (remainingMilliseconds < 0) {
+      remainingMilliseconds = 0;
+    }
     int minutes = remainingMilliseconds ~/ (60 * 1000);
     remainingMilliseconds -= minutes * 60 * 1000;
     int seconds = remainingMilliseconds ~/ 1000;
