@@ -20,9 +20,13 @@ class UserInterface {
 	Element arms;
 
 	Element opponentName;
+	Element oppBuildings;
+	Element oppArms;
 	Element gameTimeRemaining;
 
 	GameState game = null;
+
+	bool stateValid = true;
 
 	Map<String, BuildableElement> armElems = new Map();
 	Map<String, BuildableElement> econElems = new Map();
@@ -34,6 +38,8 @@ class UserInterface {
 		this.conn = conn {
 	  opponentName = querySelector("#opponentName");
 	  gameTimeRemaining = querySelector("#gameTimeRemaining");
+	  oppBuildings = querySelector("#oppBuildings");
+	  oppArms = querySelector("#oppArms");
 	}
 
 	void init() {
@@ -214,6 +220,7 @@ class UserInterface {
 
 	void update() {
 	  bool currentLayoutValid = layoutValid;
+	  bool currentStateValid = stateValid;
 
 		moneyAmount.setInnerHtml(state.money.toString());
 
@@ -229,8 +236,14 @@ class UserInterface {
 
 		_updateTime();
 
+		_updateOpponentState();
+
 		if (currentLayoutValid == layoutValid) {
 		  layoutValid = true;
+		}
+
+		if (currentStateValid == stateValid) {
+		  stateValid = true;
 		}
 
 	}
@@ -240,8 +253,25 @@ class UserInterface {
     int minutes = remainingMilliseconds ~/ (60 * 1000);
     remainingMilliseconds -= minutes * 60 * 1000;
     int seconds = remainingMilliseconds ~/ 1000;
-    gameTimeRemaining.innerHtml = '$minutes:$seconds';
+    gameTimeRemaining.innerHtml = '$minutes:${seconds < 10 ? '0' : ''}$seconds';
 
+	}
+
+	void _updateOpponentState() {
+	  if ( ! stateValid) {
+	    int econTotalCount = 0;
+	    int armsTotalCount = 0;
+	    if (game.opponentState != null) {
+	      game.opponentState.boughtEcons.forEach((String id, int count){
+	        econTotalCount += count;
+	      });
+	      game.opponentState.boughtArms.forEach((String id, int count){
+	        armsTotalCount += count;
+	      });
+	    }
+      oppBuildings.innerHtml = econTotalCount.toString();
+      oppArms.innerHtml = armsTotalCount.toString();
+	  }
 	}
 
   void resize() {
@@ -249,6 +279,7 @@ class UserInterface {
   }
 
   void updateState(GameState game) {
+    stateValid = false;
     // uuendame ainult uue mängu puhul
     if (this.game == null || game.id != this.game.id) {
       opponentName.innerHtml = (game.yourNumber == 1 ? game.player2 : game.player1);

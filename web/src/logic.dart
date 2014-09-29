@@ -86,7 +86,7 @@ class Logic {
 	    return false;
 	  }
 
-	  if (gameState.finished) {
+	  if (gameState.finished == true) {
 	    return false;
 	  }
 

@@ -149,6 +149,8 @@ class GameState {
    String state1;
    String state2;
 
+   State opponentState;
+
   // 0 == not finished, 1 == p1 won, 2 == p2 won, 3 == draw
    int winner;
    bool finished;
@@ -174,6 +176,10 @@ class GameState {
 
        state1 = map["state1"];
        state2 = map["state2"];
+
+       String stateJson = (yourNumber == 1 ? state2 : state1);
+       var st = JSON.decode(stateJson);
+       opponentState = new State(map: st);
 
        winner = map["winner"];
        finished = map["finished"];

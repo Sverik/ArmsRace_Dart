@@ -92,7 +92,7 @@ void tick(int currentTime) {
 		ui.update();
 		previousStepTime += stepIntervalMs;
 
-	  if (gameState.finished) {
+	  if (gameState.finished == true) {
       running = false;
       end.show(gameState);
     }

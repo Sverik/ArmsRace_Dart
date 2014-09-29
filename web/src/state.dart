@@ -10,6 +10,16 @@ class State {
 	bool attacked = false;
 	bool peaceOffer = false;
 
+	State({var map}) {
+	  if (map != null) {
+  	  money = map['money'];
+  	  income = map['income'];
+
+  	  boughtEcons = map['econs'];
+  	  boughtArms = map['arms'];
+	  }
+	}
+
 	int getArms(String id) {
     int count = boughtArms[id];
     if (count == null) {
