@@ -6,11 +6,15 @@ import 'dart:async';
 import 'state.dart';
 
 class Conn {
-//  String url = "http://localhost:8080";
-  String url = "http://leafy-racer-709.appspot.com";
+  String url = "http://localhost:8080";
+//  String url = "http://leafy-racer-709.appspot.com";
+
+  void _setCookie() {
+    document.cookie = "secret=${_getSecret()}; expires=Thu, 1 Jan 2099 12:00:00 UTC";
+  }
 
   void getUserInfo(void callback(PlayerInfo info)) {
-    document.cookie = "secret=${_getSecret()}";
+    _setCookie();
     Future<HttpRequest> request = HttpRequest.request('$url/player/', withCredentials: true);
     request.catchError((o){
       callback( null );
@@ -33,6 +37,7 @@ class Conn {
   }
 
   void queue(callback(GameState)) {
+    _setCookie();
     Future<HttpRequest> request = HttpRequest.request('$url/queue/', withCredentials: true, method: "POST");
     request.catchError((e) {
       callback(null);
