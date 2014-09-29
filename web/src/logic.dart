@@ -8,6 +8,7 @@ class Logic {
 	Spec spec;
 	State state;
 	Conn conn;
+	GameState gameState;
 
 	bool incomeDirty = true;
 
@@ -15,6 +16,10 @@ class Logic {
 	}
 
 	void buildEcon(String id) {
+    if ( ! _actionAllowed()) {
+      return;
+    }
+
 		EconomicBuilding econ = spec.getEcon(id);
 		// Igaks juhuks.
 		if (econ == null) {
@@ -33,6 +38,10 @@ class Logic {
 	}
 
 	void buildArm(String id) {
+	  if ( ! _actionAllowed()) {
+	    return;
+	  }
+
     Armament arm = spec.getArm(id);
     // Igaks juhuks.
     if (arm == null) {
@@ -49,6 +58,9 @@ class Logic {
 	}
 
 	void step() {
+    if ( ! _actionAllowed()) {
+      return;
+    }
 
 		if (incomeDirty) {
 			state.income = 0;
@@ -66,7 +78,27 @@ class Logic {
 	}
 
 	void updateState(GameState gameState) {
-	  // TODO
+	  this.gameState = gameState;
+	}
+
+	bool _actionAllowed() {
+	  if (gameState == null) {
+	    return false;
+	  }
+
+	  if (gameState.finished) {
+	    return false;
+	  }
+
+	  if (gameState.endTime < conn.getCurrentServerTime()) {
+	    return false;
+	  }
+
+	  if (conn.getCurrentServerTime() < gameState.startTime) {
+	    return false;
+	  }
+
+	  return true;
 	}
 
 }

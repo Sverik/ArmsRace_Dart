@@ -6,17 +6,13 @@ import 'dart:async';
 import 'state.dart';
 
 class Conn {
-  String url = "http://localhost:8080";
-//  String url = "http://leafy-racer-709.appspot.com";
+//  String url = "http://localhost:8080";
+  String url = "http://leafy-racer-709.appspot.com";
+
   /** serveri aeg miinus kohalik aeg */
   int serverLocalTimeDiff = 0;
 
-  void _setCookie() {
-    document.cookie = "secret=${_getSecret()}; expires=Thu, 1 Jan 2099 12:00:00 UTC";
-  }
-
   void getUserInfo(void callback(PlayerInfo info)) {
-    _setCookie();
     Future<HttpRequest> request = HttpRequest.request('$url/player/', withCredentials: true);
     request.catchError((o){
       callback( null );
@@ -28,7 +24,7 @@ class Conn {
   }
 
   void register(String name, callback(PlayerInfo info)) {
-    Future<HttpRequest> request = HttpRequest.request('$url/register/$name', method: "POST");
+    Future<HttpRequest> request = HttpRequest.request('$url/register/$name', withCredentials: true, method: "POST");
     request.catchError((o){
       callback( null );
     });
@@ -39,7 +35,6 @@ class Conn {
   }
 
   void queue(callback(GameState)) {
-    _setCookie();
     Future<HttpRequest> request = HttpRequest.request('$url/queue/', withCredentials: true, method: "POST");
     request.catchError((e) {
       callback(null);
@@ -100,6 +95,7 @@ class Conn {
     });
   }
 
+  // Neid vist pole enam vaja?
   void _storeSecret(String secret) {
     window.localStorage["secret"] = secret;
   }

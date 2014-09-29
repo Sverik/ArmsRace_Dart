@@ -125,7 +125,7 @@ class GreetUi {
   }
 
   void queueResponse(GameState game) {
-    if (game == null) {
+    if (game == null || game.finished == true || game.endTime < conn.getCurrentServerTime()) {
       // Ei ole mängu leitud
       if (new DateTime.now().millisecondsSinceEpoch - queuePollStart < maxQueueWaitSec * 1000) {
         // Registreerime uue päringu
