@@ -100,6 +100,24 @@ class Conn {
     });
   }
 
+  void getArms(void response(Map jsonMap)) {
+    HttpRequest.request(
+        '$url/arms/',
+        withCredentials: true,
+        method: "GET"
+        )
+        ..catchError((e){
+          response(null);
+        })
+        ..then((HttpRequest r){
+          if (r.response == null) {
+            response(null);
+          } else {
+            response(JSON.decode(r.response));
+          }
+        });
+  }
+
   // Neid vist pole enam vaja?
   void _storeSecret(String secret) {
     window.localStorage["secret"] = secret;

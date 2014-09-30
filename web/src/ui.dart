@@ -20,13 +20,17 @@ class UserInterface {
 	Element arms;
 
 	Element opponentName;
+	Element opponentStatus;
 	Element oppBuildings;
 	Element oppArms;
+	Element gameEndType;
 	Element gameTimeRemaining;
 
 	Element warmup;
 	Element warmupTimeRemaining;
 	bool warmupVisible = true;
+
+	Element attackButton;
 
 	GameState game = null;
 
@@ -41,47 +45,68 @@ class UserInterface {
 		this.spec = spec,
 		this.conn = conn {
 	  opponentName = querySelector("#opponentName");
+	  opponentStatus = querySelector("#opponentStatus");
+	  gameEndType = querySelector("#gameEndType");
 	  gameTimeRemaining = querySelector("#gameTimeRemaining");
 	  oppBuildings = querySelector("#oppBuildings");
 	  oppArms = querySelector("#oppArms");
 
 	  warmup = querySelector("#warmup");
 	  warmupTimeRemaining = querySelector("#warmupTime");
+
+	  attackButton = querySelector("#btnAttack");
 	}
 
 	void init() {
 
 		spec.econ.forEach(addEconElem);
-		spec.arms.forEach(addArmElem);
+		List<Armament> arms = new List.from(spec.arms.values, growable : false);
+		arms.sort((Armament a, Armament b){
+		  return a.cost - b.cost;
+		});
+		arms.forEach(addArmElem);
+
+		attackButton.onClick.listen((e){
+		  if ( ! state.attacked) {
+  		  state.attacked = true;
+		  }
+		});
 
 	}
 
 	void reset() {
 	  warmup.style.visibility = "visible";
 	  warmupVisible = true;
+	  opponentStatus.innerHtml = '&nbsp;';
+	  gameEndType.innerHtml = "with a battle";
+	  gameTimeRemaining.classes.remove("attacking");
+    attackButton.classes.add("enabled");
+    attackButton.classes.remove("disabled");
 	}
 
-  String getArmImageName(String id) {
-    switch (id) {
-      case '1': return "assault_rifle.png";
-      case '2': return "machine_gun.png";
-      case '3': return "sniper.png";
+  String getArmImageName(Armament arm) {
+    switch (arm.type) {
+      case 'marine': return "assault_rifle.png";
+      case 'chemical troops': return "machine_gun.png";
+      case 'sniper': return "sniper.png";
+      case 'tank': return "tank.png";
       default: return "tank.png";
     }
 
   }
 
-	void addArmElem(String id, Armament arm) {
-    _addElem("arm", id, logic.buildArm, arm.name, arm.cost, arms,
-        [new ExtraData("dam", "4"),
-         new ExtraData("hp", "10")],
+	void addArmElem(Armament arm) {
+    _addElem("arm", arm.id, logic.buildArm, arm.name, arm.cost, arms,
+        [new ExtraData("hp", arm.maxHealth.toString()),
+         new ExtraData("dps", arm.dps.toString()),
+         new ExtraData("reload", arm.reloadTime.toString())],
         (DivElement buildingRow, DivElement buildButton, DivElement built){
 
           BuildableElement elem = new BuildableElement(
               arm.cost,
-              getArmImageName(id),
+              getArmImageName(arm),
               (){
-               return state.getArms(id);
+               return state.getArms(arm.id);
               },
               buildingRow,
               buildButton,
@@ -237,11 +262,11 @@ class UserInterface {
 		moneyAmount.setInnerHtml(state.money.toString());
 
 		econElems.forEach((String id, BuildableElement elem){
-			elem.updateState(state.money, layoutValid);
+			elem.updateState(state.money, state.attacked, layoutValid);
 		});
 
 		armElems.forEach((String id, BuildableElement elem){
-			elem.updateState(state.money, layoutValid);
+			elem.updateState(state.money, state.attacked, layoutValid);
 		});
 
 		incomeAmount.setInnerHtml(state.income.toString());
@@ -251,6 +276,8 @@ class UserInterface {
 		_updateTime();
 
 		_updateOpponentState();
+
+		_updateDecisionState();
 
 		if (currentLayoutValid == layoutValid) {
 		  layoutValid = true;
@@ -282,6 +309,7 @@ class UserInterface {
 
 	void _updateOpponentState() {
 	  if ( ! stateValid) {
+	    // Vastase ehitised
 	    int econTotalCount = 0;
 	    int armsTotalCount = 0;
 	    if (game.opponentState != null) {
@@ -294,7 +322,20 @@ class UserInterface {
 	    }
       oppBuildings.innerHtml = econTotalCount.toString();
       oppArms.innerHtml = armsTotalCount.toString();
+
+      // Kas vastane rümdas?
+      if (game.attacker != 0 && game.attacker != game.yourNumber) {
+        opponentStatus.innerHtml = "Attacking soon!!";
+      }
 	  }
+	}
+
+	void _updateDecisionState() {
+    if (game.attacker != 0 || state.attacked) {
+      gameTimeRemaining.classes.add("attacking");
+      attackButton.classes.remove("enabled");
+      attackButton.classes.add("disabled");
+    }
 	}
 
 	String _toMinutesSeconds(int millis) {
@@ -351,10 +392,10 @@ class BuildableElement {
 		this.buildButton = buildButton,
 		this.built = built;
 
-  void updateState(int money, bool layoutValid) {
+  void updateState(int money, bool attacked, bool layoutValid) {
   	int oldVisibilityState = visibilityState;
 
-  	if (money >= cost) {
+  	if (money >= cost && ! attacked) {
   		visibilityState = 2;
   	} else {
   		visibilityState = 1;

@@ -58,7 +58,7 @@ class Logic {
 	}
 
 	void step() {
-    if ( ! _actionAllowed()) {
+    if ( ! _stepAllowed()) {
       return;
     }
 
@@ -82,6 +82,18 @@ class Logic {
 	}
 
 	bool _actionAllowed() {
+	  if ( ! _stepAllowed()) {
+	    return false;
+	  }
+
+    if (state.attacked == true) {
+      return false;
+    }
+
+	  return true;
+	}
+
+	bool _stepAllowed() {
 	  if (gameState == null) {
 	    return false;
 	  }

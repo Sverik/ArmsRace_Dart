@@ -42,7 +42,7 @@ void main() {
   end = new EndUi(querySelector("#gameEnd"), endGameClosed);
   end.init();
 
-	spec = new Spec();
+	spec = new Spec(conn);
 
 	// Kui load lõpetab, kutsub ta parameetriks kaasa antud funktsiooni ehk initsialiseerimine jätkub.
 	spec.load((){
