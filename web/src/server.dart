@@ -6,11 +6,16 @@ import 'dart:async';
 import 'state.dart';
 
 class Conn {
-//  String url = "http://localhost:8080";
   String url = "http://leafy-racer-709.appspot.com";
 
   /** serveri aeg miinus kohalik aeg */
   int serverLocalTimeDiff = 0;
+
+  Conn({bool dev}) {
+    if (dev != null && dev == true) {
+      url = "http://localhost:8080";
+    }
+  }
 
   void getUserInfo(void callback(PlayerInfo info)) {
     Future<HttpRequest> request = HttpRequest.request('$url/player/', withCredentials: true);

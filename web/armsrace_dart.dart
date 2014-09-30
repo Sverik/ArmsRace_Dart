@@ -31,7 +31,9 @@ GameState gameState;
 
 void main() {
 
-  conn = new Conn();
+  Uri u = Uri.parse(window.location.search);
+
+  conn = new Conn(dev: u.queryParameters.containsKey("dev"));
 
   greet = new GreetUi(querySelector("#greet"), window.localStorage, conn, startGame);
   greet.init();
