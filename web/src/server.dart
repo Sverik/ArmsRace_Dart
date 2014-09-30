@@ -118,6 +118,24 @@ class Conn {
         });
   }
 
+  void getBattle(int gameId, void response(Battle battle)) {
+    HttpRequest.request(
+        '$url/battle/$gameId',
+        withCredentials: true,
+        method: "GET"
+        )
+        ..catchError((e){
+          response(null);
+        })
+        ..then((HttpRequest r){
+          if (r.response == null) {
+            response(null);
+          } else {
+            response(new Battle(JSON.decode(r.response)));
+          }
+        });
+  }
+
   // Neid vist pole enam vaja?
   void _storeSecret(String secret) {
     window.localStorage["secret"] = secret;
@@ -211,4 +229,14 @@ class GameState {
 
      }
    }
+}
+
+class Battle {
+  int winner;
+  bool draw;
+
+  Battle(var map) {
+    winner = map["winner"];
+    draw = map["draw"];
+  }
 }

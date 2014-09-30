@@ -28,3 +28,11 @@
   border: 1px solid black;
 }
 
+#battleWinnerLabel {
+	font-size: large;
+}
+
+#battleWinner {
+	font-size: large;
+	font-weight: bold;
+}

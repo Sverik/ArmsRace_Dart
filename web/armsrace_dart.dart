@@ -39,7 +39,7 @@ void main() {
   greet.init();
   greet.show();
 
-  end = new EndUi(querySelector("#gameEnd"), endGameClosed);
+  end = new EndUi(querySelector("#gameEnd"), conn, endGameClosed);
   end.init();
 
 	spec = new Spec(conn);
