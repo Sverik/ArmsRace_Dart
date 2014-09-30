@@ -96,7 +96,7 @@ class UserInterface {
   }
 
 	void addArmElem(Armament arm) {
-    _addElem("arm", arm.id, logic.buildArm, arm.name, arm.cost, arms,
+    _addElem("arm", arm.id, logic.buildArm, arm.type, arm.cost, arms,
         [new ExtraData("hp", arm.maxHealth.toString()),
          new ExtraData("dps", arm.dps.toString()),
          new ExtraData("reload", arm.reloadTime.toString())],

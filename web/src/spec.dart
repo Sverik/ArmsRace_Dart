@@ -67,7 +67,6 @@ class EconomicBuilding {
 class Armament {
   String id;
   String type;
-  String name;
   int cost;
 
   /** initial health */
@@ -90,7 +89,6 @@ class Armament {
   Armament(String id, var jsonMap) {
     this.id = id;
     type = jsonMap["type"];
-    name = jsonMap["type"];
     cost = jsonMap["cost"];
 
     maxHealth = jsonMap["maxHealth"];
