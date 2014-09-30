@@ -85,7 +85,7 @@ class UserInterface {
 	}
 
   String getArmImageName(Armament arm) {
-    switch (arm.type) {
+    switch (arm.name) {
       case 'marine': return "assault_rifle.png";
       case 'chemical troops': return "machine_gun.png";
       case 'sniper': return "sniper.png";
@@ -96,7 +96,7 @@ class UserInterface {
   }
 
 	void addArmElem(Armament arm) {
-    _addElem("arm", arm.id, logic.buildArm, arm.type, arm.cost, arms,
+    _addElem("arm", arm.id, logic.buildArm, arm.name, arm.cost, arms,
         [new ExtraData("hp", arm.maxHealth.toString()),
          new ExtraData("dps", arm.dps.toString()),
          new ExtraData("reload", arm.reloadTime.toString())],
