@@ -1,0 +1,25 @@
+#warmup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  visibility: hidden;
+  z-index: 20;
+  background-color: rgba(0,0,0,0.1);
+}
+
+#warmupContent {
+  display: table;
+  text-align: center;
+  margin: auto;
+  background-color: white;
+  margin-top: 50px;
+  padding: 20px;
+  border: 1px solid black;
+  font-size: x-large;
+}
+
+#warmupTime {
+	font-weight: bold;
+}

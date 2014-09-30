@@ -24,6 +24,10 @@ class UserInterface {
 	Element oppArms;
 	Element gameTimeRemaining;
 
+	Element warmup;
+	Element warmupTimeRemaining;
+	bool warmupVisible = true;
+
 	GameState game = null;
 
 	bool stateValid = true;
@@ -40,6 +44,9 @@ class UserInterface {
 	  gameTimeRemaining = querySelector("#gameTimeRemaining");
 	  oppBuildings = querySelector("#oppBuildings");
 	  oppArms = querySelector("#oppArms");
+
+	  warmup = querySelector("#warmup");
+	  warmupTimeRemaining = querySelector("#warmupTime");
 	}
 
 	void init() {
@@ -50,7 +57,8 @@ class UserInterface {
 	}
 
 	void reset() {
-
+	  warmup.style.visibility = "visible";
+	  warmupVisible = true;
 	}
 
   String getArmImageName(String id) {
@@ -238,6 +246,8 @@ class UserInterface {
 
 		incomeAmount.setInnerHtml(state.income.toString());
 
+		_updateWarmup();
+
 		_updateTime();
 
 		_updateOpponentState();
@@ -252,15 +262,21 @@ class UserInterface {
 
 	}
 
+	void _updateWarmup() {
+	  if (warmupVisible) {
+  	  if (conn.getCurrentServerTime() < game.startTime) {
+  	    int millisToStart = game.startTime - conn.getCurrentServerTime();
+  	    warmupTimeRemaining.innerHtml = _toMinutesSeconds(millisToStart);
+  	  } else {
+  	    warmup.style.visibility = "hidden";
+  	    warmupVisible = false;
+  	  }
+	  }
+	}
+
 	void _updateTime() {
     int remainingMilliseconds = game.endTime - conn.getCurrentServerTime();
-    if (remainingMilliseconds < 0) {
-      remainingMilliseconds = 0;
-    }
-    int minutes = remainingMilliseconds ~/ (60 * 1000);
-    remainingMilliseconds -= minutes * 60 * 1000;
-    int seconds = remainingMilliseconds ~/ 1000;
-    gameTimeRemaining.innerHtml = '$minutes:${seconds < 10 ? '0' : ''}$seconds';
+    gameTimeRemaining.innerHtml = _toMinutesSeconds(remainingMilliseconds);
 
 	}
 
@@ -279,6 +295,17 @@ class UserInterface {
       oppBuildings.innerHtml = econTotalCount.toString();
       oppArms.innerHtml = armsTotalCount.toString();
 	  }
+	}
+
+	String _toMinutesSeconds(int millis) {
+    if (millis < 0) {
+      millis = 0;
+    }
+    int minutes = millis ~/ (60 * 1000);
+    millis -= minutes * 60 * 1000;
+    int seconds = millis ~/ 1000;
+    return '$minutes:${seconds < 10 ? '0' : ''}$seconds';
+
 	}
 
   void resize() {
