@@ -36,3 +36,36 @@
 	font-size: large;
 	font-weight: bold;
 }
+
+#map {
+	position: relative;
+	display: table;
+	width: 600px;
+	height: 300px;
+	margin: 0px auto 20px auto;
+	background-color: #473;
+}
+
+.battleUnit {
+	position: absolute;
+	width: 5%;
+	height: 10%;
+}
+
+.battleUnitCount {
+    position: absolute;
+    font-weight: bold;
+    font-size: large;
+    color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    -1px 0px 0 #000,
+    1px -1px 0 #000,
+    1px 0px 0 #000,
+    -1px 1px 0 #000,
+    0px 1px 0 #000,
+    1px 1px 0 #000,
+    0px -1px 0 #000;
+    z-index: 4;
+}
+

@@ -39,9 +39,6 @@ void main() {
   greet.init();
   greet.show();
 
-  end = new EndUi(querySelector("#gameEnd"), conn, endGameClosed);
-  end.init();
-
 	spec = new Spec(conn);
 
 	// Kui load lõpetab, kutsub ta parameetriks kaasa antud funktsiooni ehk initsialiseerimine jätkub.
@@ -55,6 +52,20 @@ void main() {
   	ui.economy = querySelector("#economy");
   	ui.arms = querySelector("#arms");
   	ui.init();
+
+    end = new EndUi(querySelector("#gameEnd"), conn, endGameClosed, ui.getArmImageName);
+    end.init();
+
+    /*
+    GameState gs = new GameState({
+      "id" : 5910974510923776,
+      "yourNumber" : 1,
+      "player1" : "Alice",
+      "player2" : "Bob",
+      "winner": "Alice"
+    });
+    end.show(gs);
+     */
 
   	window.onResize.listen((e){
   	  ui.resize();

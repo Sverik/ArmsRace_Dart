@@ -34,7 +34,7 @@ class Spec {
 
   void _processUnits(Map jsonMap) {
     jsonMap.forEach((var k, var v) {
-      Armament arm = new Armament(k, v);
+      Armament arm = new Armament(v, id: k);
       arms[arm.id] = arm;
     });
     loadCallback();
@@ -86,7 +86,7 @@ class Armament {
   bool shootWhileMoving = false;
   bool targetsArmored   = false;
 
-  Armament(String id, var jsonMap) {
+  Armament(var jsonMap, {String id}) {
     this.id = id;
     name = jsonMap["name"];
     cost = jsonMap["cost"];

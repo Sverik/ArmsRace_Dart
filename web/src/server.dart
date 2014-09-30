@@ -4,6 +4,8 @@ import 'dart:html';
 import 'dart:convert';
 import 'dart:async';
 import 'state.dart';
+import 'spec.dart';
+import 'battle.dart';
 
 class Conn {
   String url = "http://leafy-racer-709.appspot.com";
@@ -231,12 +233,3 @@ class GameState {
    }
 }
 
-class Battle {
-  int winner;
-  bool draw;
-
-  Battle(var map) {
-    winner = map["winner"];
-    draw = map["draw"];
-  }
-}
