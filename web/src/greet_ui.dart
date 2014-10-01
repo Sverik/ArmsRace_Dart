@@ -7,6 +7,7 @@ import 'dart:async';
 class GreetUi {
   static const pollIntervalSec = 5;
   static const maxQueueWaitSec = 300;
+  static const maxTriesBeforeAllowReplay = 4;
 
   Element greetDiv;
   Element nameElem;
@@ -121,7 +122,7 @@ class GreetUi {
   void queryQueue() {
     findOpponentTryCount++;
     startStatus.innerHtml = 'Searching for opponent, try #$findOpponentTryCount...';
-    conn.queue( queueResponse );
+    conn.queue(findOpponentTryCount > maxTriesBeforeAllowReplay, queueResponse );
   }
 
   void queueResponse(GameState game) {

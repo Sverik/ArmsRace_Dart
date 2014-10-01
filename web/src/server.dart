@@ -41,8 +41,8 @@ class Conn {
     });
   }
 
-  void queue(callback(GameState)) {
-    Future<HttpRequest> request = HttpRequest.request('$url/queue/', withCredentials: true, method: "POST");
+  void queue(bool allowReplay, callback(GameState)) {
+    Future<HttpRequest> request = HttpRequest.request('$url/queue/${allowReplay ? '1' : '0'}', withCredentials: true, method: "POST");
     request.catchError((e) {
       callback(null);
     });
