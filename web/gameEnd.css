@@ -46,6 +46,14 @@
 	background-color: #473;
 }
 
+#replayInfo {
+  position: relative;
+  display: table;
+  width: 600px;
+  height: 50px;
+  margin: 0px auto 0px auto;
+}
+
 .battleUnit {
 	position: absolute;
 	width: 5%;
@@ -69,3 +77,8 @@
     z-index: 4;
 }
 
+#clickToReplay {
+	visibility: visible;
+	left: 10px;
+	top: 20px;
+}

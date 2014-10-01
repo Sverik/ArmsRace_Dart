@@ -10,6 +10,7 @@ class EndUi {
   Element closeButton;
   Element battleWinner;
   Element map;
+  Element replayInfo;
   Conn conn;
   var endClosed;
   var getArmImageName;
@@ -22,6 +23,7 @@ class EndUi {
     closeButton = endDiv.querySelector("#closeButton");
     battleWinner = endDiv.querySelector("#battleWinner");
     map = endDiv.querySelector("#map");
+    replayInfo = endDiv.querySelector("#replayInfo");
   }
 
   void init() {
@@ -53,32 +55,7 @@ class EndUi {
       }
     }
 
-    Map<String, BattleElement> bes = new Map();
-    // grid step
-    int gS = map.client.width ~/ 20;
-    var m = (List<BattleUnit> bus) {
-      bus.forEach((BattleUnit bu){
-        ImageElement image = new ImageElement(src: getArmImageName(bu.type), width: gS, height: gS);
-        image.classes.add("battleUnit");
-        image.style.left = "${bu.loc.x * gS}px";
-        image.style.top = "${bu.loc.y * gS}px";
-        map.children.add(image);
-
-        DivElement d = new DivElement();
-        d.classes.add("battleUnitCount");
-        d.style.left = "${bu.loc.x * gS}px";
-        d.style.top = "${bu.loc.y * gS}px";
-        d.innerHtml = "${bu.n}";
-        map.children.add(d);
-
-        bes["${bu.loc.x}x${bu.loc.y}"] = new BattleElement(bu, image, d);
-        //print("bu ${bu.type.name}, x: ${bu.loc.x}, y: ${bu.loc.y}, left: ${bu.loc.x * gS}, top: ${bu.loc.y * gS}");
-      });
-    };
-    m(battle.initialUnitsP1);
-    m(battle.initialUnitsP2);
-
-    var showRound = (Round r){
+    var showRound = (Map<String, BattleElement> bes, int gS, Round r){
       //print("-=round=-");
       r.events.forEach((BattleEvent e){
         if (e is MoveEvent) {
@@ -107,19 +84,62 @@ class EndUi {
       });
     };
 
-    Iterator<Round> iter = battle.log.iterator;
-    var playback;
-    playback = () {
-      if (iter.moveNext()) {
-        Round r = iter.current;
-        showRound(r);
-        new Future.delayed(const Duration(seconds: 1), (){
-          playback();
+    var playBattle;
+    playBattle = () {
+      replayInfo.innerHtml = "";
+      map.children.clear();
+      Map<String, BattleElement> bes = new Map();
+      // grid step
+      int gS = map.client.width ~/ 20;
+      var m = (List<BattleUnit> bus) {
+        bus.forEach((BattleUnit bu){
+          ImageElement image = new ImageElement(src: getArmImageName(bu.type), width: gS, height: gS);
+          image.classes.add("battleUnit");
+          image.style.left = "${bu.loc.x * gS}px";
+          image.style.top = "${bu.loc.y * gS}px";
+          map.children.add(image);
+
+          DivElement d = new DivElement();
+          d.classes.add("battleUnitCount");
+          d.style.left = "${bu.loc.x * gS}px";
+          d.style.top = "${bu.loc.y * gS}px";
+          d.innerHtml = "${bu.n}";
+          map.children.add(d);
+
+          bes["${bu.loc.x}x${bu.loc.y}"] = new BattleElement(bu, image, d);
+          //print("bu ${bu.type.name}, x: ${bu.loc.x}, y: ${bu.loc.y}, left: ${bu.loc.x * gS}, top: ${bu.loc.y * gS}");
         });
-      }
+      };
+      m(battle.initialUnitsP1);
+      m(battle.initialUnitsP2);
+
+      Iterator<Round> iter = battle.log.iterator;
+
+      var playback;
+      int rc = 0;
+      playback = () {
+        if (iter.moveNext()) {
+          rc++;
+          replayInfo.innerHtml = "Round $rc / ${battle.log.length}";
+          Round r = iter.current;
+          showRound(bes, gS, r);
+          new Future.delayed(const Duration(seconds: 1), (){
+            playback();
+          });
+        } else {
+          replayInfo.innerHtml = "Click here to replay";
+          StreamSubscription onClickListener;
+          onClickListener = replayInfo.onClick.listen((e){
+            onClickListener.cancel();
+            playBattle();
+          });
+        }
+      };
+
+      playback();
     };
 
-    playback();
+    playBattle();
 
   }
 
