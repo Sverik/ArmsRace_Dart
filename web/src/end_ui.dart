@@ -69,9 +69,13 @@ class EndUi {
             be.text.style.top = "${e.to.y * gS}px";
           }
         } else if (e is ShootEvent) {
-          BattleElement be = bes["${e.from.x}x${e.from.y}"];
+          BattleElement be = bes["${e.to.x}x${e.to.y}"];
           String k = "";
-          if (e.newHealth.numUnits <= 0) {
+          if (e.newHealth.numUnits > 0) {
+            // uuendame unitite arvu
+            be.text.innerHtml = "${e.newHealth.numUnits}";
+          } else {
+            // kõik läinud
             bes.remove("${e.to.x}x${e.to.y}");
             k = ", NU=0";
             if (be != null) {
