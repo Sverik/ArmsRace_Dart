@@ -56,16 +56,19 @@ void main() {
     end = new EndUi(querySelector("#gameEnd"), conn, endGameClosed, ui.getArmImageName);
     end.init();
 
-    /*
-    GameState gs = new GameState({
-      "id" : 5910974510923776,
-      "yourNumber" : 1,
-      "player1" : "Alice",
-      "player2" : "Bob",
-      "winner": "Alice"
-    });
-    end.show(gs);
-     */
+    try {
+      if (u.queryParameters.containsKey("battle")) {
+        int gameId = int.parse(u.queryParameters["battle"]);
+        GameState gs = new GameState({
+          "id" : gameId,
+          "yourNumber" : 1,
+          "player1" : "Alice",
+          "player2" : "Bob",
+          "winner": "Alice"
+        });
+        end.show(gs);
+      }
+    } catch (e) {}
 
   	window.onResize.listen((e){
   	  ui.resize();
