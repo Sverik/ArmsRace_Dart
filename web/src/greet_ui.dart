@@ -42,6 +42,10 @@ class GreetUi {
 
   }
 
+  void nameChanged(Event evt) {
+    setNameButton.disabled = nameInput.value.trim().length <= 1;
+  }
+
   void init() {
     setNameButton.onClick.listen((e){
       nameInput.readOnly = true;
@@ -49,11 +53,18 @@ class GreetUi {
       conn.register( nameInput.value, playerRegistered );
     });
 
+    nameInput
+        ..onChange.listen(nameChanged)
+        ..onKeyDown.listen(nameChanged)
+        ..onKeyUp.listen(nameChanged)
+        ..onCut.listen(nameChanged)
+        ..onPaste.listen(nameChanged);
+
     _enableStart(false);
     conn.getUserInfo(initialCheck);
 
     nameInput.readOnly = false;
-    setNameButton.disabled = false;
+    setNameButton.disabled = true;
     _setPlayerInfo(playerInfo);
     startStatus.innerHtml = "";
 
