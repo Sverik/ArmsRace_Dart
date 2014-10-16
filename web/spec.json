@@ -10,55 +10,55 @@
       "id": 2,
       "name": "Blacksmith",
       "cost": 500,
-      "income": 3
+      "income": 5
     },
     {
       "id": 3,
       "name": "Docks",
       "cost": 1000,
-      "income": 12
+      "income": 11
     },
     {
       "id": 4,
       "name": "Pub",
-      "cost": 1500,
-      "income": 14
+      "cost": 5000,
+      "income": 54
     },
     {
       "id": 5,
       "name": "Hotel",
-      "cost": 2000,
-      "income": 19
+      "cost": 10000,
+      "income": 110
     },
     {
       "id": 6,
       "name": "Steel Mill",
-      "cost": 3000,
-      "income": 25
+      "cost": 50000,
+      "income": 580
     },
     {
       "id": 7,
       "name": "IC fab",
-      "cost": 3001,
-      "income": 20
+      "cost": 100000,
+      "income": 1200
     },
     {
       "id": 8,
       "name": "Plastic Factory",
-      "cost": 3002,
-      "income": 21
+      "cost": 500000,
+      "income": 7000
     },
     {
       "id": 9,
       "name": "Film Studio",
-      "cost": 3003,
-      "income": 22
+      "cost": 1000000,
+      "income": 15000
     },
     {
       "id": 10,
       "name": "BTC Mine",
-      "cost": 10000,
-      "income": 30
+      "cost": 5000000,
+      "income": 100000
     }
   ],
   "armaments": [
