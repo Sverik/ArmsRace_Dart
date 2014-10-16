@@ -82,6 +82,12 @@ class UserInterface {
 	  gameTimeRemaining.classes.remove("attacking");
     attackButton.classes.add("enabled");
     attackButton.classes.remove("disabled");
+    armElems.forEach((String k, BuildableElement be){
+      be.visibilityState = -1;
+    });
+    econElems.forEach((String k, BuildableElement be){
+      be.visibilityState = -1;
+    });
 	}
 
   String getArmImageName(Armament arm) {

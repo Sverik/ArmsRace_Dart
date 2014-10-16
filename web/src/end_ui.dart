@@ -9,6 +9,8 @@ class EndUi {
   Element endDiv;
   Element closeButton;
   Element battleWinner;
+  Element player1Name;
+  Element player2Name;
   Element map;
   Element replayInfo;
   Conn conn;
@@ -22,6 +24,8 @@ class EndUi {
     this.getArmImageName = getArmImageName {
     closeButton = endDiv.querySelector("#closeButton");
     battleWinner = endDiv.querySelector("#battleWinner");
+    player1Name = endDiv.querySelector("#player1Name");
+    player2Name = endDiv.querySelector("#player2Name");
     map = endDiv.querySelector("#map");
     replayInfo = endDiv.querySelector("#replayInfo");
   }
@@ -37,6 +41,8 @@ class EndUi {
     endDiv.style.visibility = "visible";
     map.children.clear();
     battleWinner.innerHtml = '...';
+    player1Name.innerHtml = game.player1;
+    player2Name.innerHtml = game.player2;
     conn.getBattle(game.id, (Battle battle){
       _showBattle(game, battle);
     });

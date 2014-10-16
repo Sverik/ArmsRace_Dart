@@ -37,12 +37,26 @@
 	font-weight: bold;
 }
 
+#player1Name {
+	float: left;
+	display: table;
+	margin-left: 30px;
+  font-size: x-large;
+}
+
+#player2Name {
+	float: right;
+	display: table;
+  margin-right: 30px;
+  font-size: x-large;
+}
+
 #map {
 	position: relative;
 	display: table;
 	width: 600px;
 	height: 300px;
-	margin: 0px auto 20px auto;
+	margin: 30px auto 20px auto;
 	background-color: #473;
 }
 

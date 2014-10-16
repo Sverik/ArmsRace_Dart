@@ -12,6 +12,10 @@ h1, p {
   color: #333;
 }
 
+#ongoingGame {
+	display: none;
+}
+
 #contents {
 		width: 100%;
 		height: 1500px;

@@ -7,7 +7,7 @@ import 'dart:async';
 class GreetUi {
   static const pollIntervalSec = 5;
   static const maxQueueWaitSec = 300;
-  static const maxTriesBeforeAllowReplay = 4;
+  static const maxTriesBeforeAllowReplay = 9;
 
   Element greetDiv;
   Element nameElem;

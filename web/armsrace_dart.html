@@ -55,6 +55,8 @@
 	    <p>The game ended with a battle.</p>
 	    <p><label id="battleWinnerLabel">Winner: </label><label id="battleWinner"></label></p>
 	    <div id="replayInfo"></div>
+	    <div id="player1Name"></div>
+	    <div id="player2Name"></div>
 	    <div id="map"></div>
   	  <div id="closeButton" class="button">Return to menu</div>
 	   </div>
@@ -67,71 +69,73 @@
 	   </div>
 	  </div>
 	
-		<h1>Arms Race</h1>
-		
-		<p>
-		  WAT
-		</p>
-
-		<p>
-			<label class="cash label">Cash:</label>
-			<label id="money_amount" class="cash amount"></label>
-		</p>
-
-		<p>
-			<label class="income label">Income:</label>
-			<label id="income_amount" class="income amount"></label>
-		</p>
-		
-		<p>
-		  <label class="label">Race will end</label>
-		  <label class="label" id="gameEndType"></label>
-		  <label class="label">in</label>
-		  <label class="label" id="gameTimeRemaining">4:31</label>
-		  <label class="label">.</label>
-		</p>
-
-		<div id="contents">
-			<div class="row">
-				<div id="economyPane" class="build pane">
-					<div class="title">
-						<h2>Economy</h2>
-					</div>
-					<div id="economy">
-					</div>
-				</div>
-				<div id="armsPane" class="build pane">
-					<div class="title">
-						<h2>Arms</h2>
-					</div>
-					<div id="arms">
-					</div>
-				</div>
-				<div class="buttons pane">
-					<div class="buttonContainer">
-						<div class="decisionButton button attack rotate enabled" id="btnAttack">
-							Attack!!
+	  <div id="ongoingGame">
+			<h1>Arms Race</h1>
+			
+			<p>
+			  WAT
+			</p>
+	
+			<p>
+				<label class="cash label">Cash:</label>
+				<label id="money_amount" class="cash amount"></label>
+			</p>
+	
+			<p>
+				<label class="income label">Income:</label>
+				<label id="income_amount" class="income amount"></label>
+			</p>
+			
+			<p>
+			  <label class="label">Race will end</label>
+			  <label class="label" id="gameEndType"></label>
+			  <label class="label">in</label>
+			  <label class="label" id="gameTimeRemaining">4:31</label>
+			  <label class="label">.</label>
+			</p>
+	
+			<div id="contents">
+				<div class="row">
+					<div id="economyPane" class="build pane">
+						<div class="title">
+							<h2>Economy</h2>
 						</div>
-						<div class="decisionButton button peace rotate enabled" id="btnPeace">
-							Propose/Accept peace
+						<div id="economy">
 						</div>
 					</div>
-				</div>
-				<div class="opponent pane">
-					<div class="title">
-						<h2>Opponent</h2>
+					<div id="armsPane" class="build pane">
+						<div class="title">
+							<h2>Arms</h2>
+						</div>
+						<div id="arms">
+						</div>
 					</div>
-					<div id="opponentName"></div>
-					<div id="opponentStatus">Offered peace</div>
-					<div>
-						<label class="oppLabel">Buildings:</label>
-						<label class="oppValue" id="oppBuildings"></label>
+					<div class="buttons pane">
+						<div class="buttonContainer">
+							<div class="decisionButton button attack rotate enabled" id="btnAttack">
+								Attack!!
+							</div>
+							<div class="decisionButton button peace rotate enabled" id="btnPeace">
+								Propose/Accept peace
+							</div>
+						</div>
 					</div>
-					<div>
-						<label class="oppLabel">Arms:</label>
-						<label class="oppValue" id="oppArms"></label>
+					<div class="opponent pane">
+						<div class="title">
+							<h2>Opponent</h2>
+						</div>
+						<div id="opponentName"></div>
+						<div id="opponentStatus">Offered peace</div>
+						<div>
+							<label class="oppLabel">Buildings:</label>
+							<label class="oppValue" id="oppBuildings"></label>
+						</div>
+						<div>
+							<label class="oppLabel">Arms:</label>
+							<label class="oppValue" id="oppArms"></label>
+						</div>
+						<div></div>
 					</div>
-					<div></div>
 				</div>
 			</div>
 		</div>

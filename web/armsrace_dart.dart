@@ -87,11 +87,13 @@ void startGame(GameState game) {
   logic.updateState(game);
   running = true;
   previousStepTime = NO_PREVIOUS_STEP;
+  querySelector("#ongoingGame").style.display = "inline";
   requestTick();
 }
 
 void endGameClosed() {
   greet.show();
+  querySelector("#ongoingGame").style.display = "none";
 }
 
 void requestTick() {
@@ -119,7 +121,7 @@ void tick(int currentTime) {
     }
 	}
 
-	new Future.delayed(const Duration(milliseconds: 20), () {
+	new Future.delayed(new Duration(milliseconds: previousStepTime + stepIntervalMs - new DateTime.now().millisecondsSinceEpoch), () {
 		requestTick();
 	});
 }
