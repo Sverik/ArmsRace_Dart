@@ -9,10 +9,12 @@ import 'src/greet_ui.dart';
 import 'src/end_ui.dart';
 import 'src/server.dart';
 
-/** Iga stepIntervalMs-inda millisekundi kohta tuleb üks samm teha. See muutuja näitab, millise millisekundi kohta viimati samm tehti. */
-int previousStepTime = -1000;
 const stepIntervalMs = 200;
 const pollIntervalSteps = 15; // 5 sammu sekundis, 3 sekundi tagant poll
+const NO_PREVIOUS_STEP = -1000;
+
+/** Iga stepIntervalMs-inda millisekundi kohta tuleb üks samm teha. See muutuja näitab, millise millisekundi kohta viimati samm tehti. */
+int previousStepTime = NO_PREVIOUS_STEP;
 
 int stepCounter = 0;
 int lastPollStep = 0;
@@ -84,6 +86,7 @@ void startGame(GameState game) {
   ui.updateState(game);
   logic.updateState(game);
   running = true;
+  previousStepTime = NO_PREVIOUS_STEP;
   requestTick();
 }
 
@@ -98,7 +101,7 @@ void requestTick() {
 }
 
 void tick(int currentTime) {
-	if (previousStepTime == -1000) {
+	if (previousStepTime == NO_PREVIOUS_STEP) {
 		previousStepTime = currentTime;
 	}
 
